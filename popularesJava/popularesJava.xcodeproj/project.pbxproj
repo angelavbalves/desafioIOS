@@ -14,6 +14,7 @@
 		8E678BDB288ED95700220F2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E678BD9288ED95700220F2C /* LaunchScreen.storyboard */; };
 		8E678BE9288EE40D00220F2C /* PopularRepositoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BE8288EE40D00220F2C /* PopularRepositoriesView.swift */; };
 		8E678BEC288EE44400220F2C /* PopularRepositoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */; };
+		8E678BEF288EEA8E00220F2C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BEE288EEA8E00220F2C /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8E678BDC288ED95700220F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E678BE8288EE40D00220F2C /* PopularRepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRepositoriesView.swift; sourceTree = "<group>"; };
 		8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRepositoriesCell.swift; sourceTree = "<group>"; };
+		8E678BEE288EEA8E00220F2C /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		8E678BCD288ED95200220F2C /* popularesJava */ = {
 			isa = PBXGroup;
 			children = (
+				8E678BED288EEA8000220F2C /* Data */,
 				8E678BE4288EDA6300220F2C /* Sources */,
 				8E678BE3288EDA0C00220F2C /* Config */,
 				8E678BE2288ED9E200220F2C /* Resources */,
@@ -124,6 +127,14 @@
 				8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		8E678BED288EEA8000220F2C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				8E678BEE288EEA8E00220F2C /* Service.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +211,7 @@
 				8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */,
 				8E678BE9288EE40D00220F2C /* PopularRepositoriesView.swift in Sources */,
 				8E678BD1288ED95200220F2C /* SceneDelegate.swift in Sources */,
+				8E678BEF288EEA8E00220F2C /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

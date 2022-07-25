@@ -24,6 +24,8 @@ class PopularRepositoriesView: UIView {
         addSubview(tableView)
         setupConstraintsTableView()
         tableView.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
     required init?(coder: NSCoder) {
@@ -42,6 +44,9 @@ class PopularRepositoriesView: UIView {
 
 extension PopularRepositoriesView: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
 }
 
 extension PopularRepositoriesView: UITableViewDataSource {
