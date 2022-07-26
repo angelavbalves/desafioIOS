@@ -10,6 +10,8 @@ import UIKit
 
 class PopularRepositoriesView: UIView {
 
+    private var popularRepositories: [RepositoryResponseItem] = []
+
     private lazy var tableView: UITableView = {
         let tv = UITableView(frame: .zero)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +42,11 @@ class PopularRepositoriesView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
+
+    func reloadTableViewWith(popularRepositories: [RepositoryResponseItem]) {
+        self.popularRepositories = popularRepositories
+        tableView.reloadData()
+    }
 }
 
 extension PopularRepositoriesView: UITableViewDelegate {
@@ -51,11 +58,14 @@ extension PopularRepositoriesView: UITableViewDelegate {
 
 extension PopularRepositoriesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        popularRepositories.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PopularRepositoriesCell.identifer,for: indexPath) as! PopularRepositoriesCell
+
+        let repository = popularRepositories[indexPath.row]
+        cell.setup(for: repository)
 
         return cell
     }

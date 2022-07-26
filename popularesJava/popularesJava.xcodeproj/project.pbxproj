@@ -15,6 +15,7 @@
 		8E678BE9288EE40D00220F2C /* PopularRepositoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BE8288EE40D00220F2C /* PopularRepositoriesView.swift */; };
 		8E678BEC288EE44400220F2C /* PopularRepositoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */; };
 		8E678BEF288EEA8E00220F2C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BEE288EEA8E00220F2C /* Service.swift */; };
+		8E678BF2288F211600220F2C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BF1288F211600220F2C /* Repository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8E678BE8288EE40D00220F2C /* PopularRepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRepositoriesView.swift; sourceTree = "<group>"; };
 		8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRepositoriesCell.swift; sourceTree = "<group>"; };
 		8E678BEE288EEA8E00220F2C /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		8E678BF1288F211600220F2C /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		8E678BE4288EDA6300220F2C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				8E678BF0288F210000220F2C /* Common */,
 				8E678BE5288EDA7400220F2C /* Presentation */,
 			);
 			path = Sources;
@@ -135,6 +138,14 @@
 				8E678BEE288EEA8E00220F2C /* Service.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		8E678BF0288F210000220F2C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8E678BF1288F211600220F2C /* Repository.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E678BF2288F211600220F2C /* Repository.swift in Sources */,
 				8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */,
 				8E678BEC288EE44400220F2C /* PopularRepositoriesCell.swift in Sources */,
 				8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */,
