@@ -10,8 +10,27 @@ import UIKit
 
 class PopularRepositoriesView: UIView {
 
+    // MARK: Properties
     private var popularRepositories: [RepositoryResponseItem] = []
+    var delegate: PopularDelegate?
 
+    // MARK: Init
+    init(delegate: PopularDelegate) {
+        self.delegate = delegate
+        super.init(frame: .zero)
+        addSubview(tableView)
+        setupConstraintsTableView()
+        tableView.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Views
     private lazy var tableView: UITableView = {
         let tv = UITableView(frame: .zero)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -21,19 +40,7 @@ class PopularRepositoriesView: UIView {
         return tv
     }()
 
-    init() {
-        super.init(frame: .zero)
-        addSubview(tableView)
-        setupConstraintsTableView()
-        tableView.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+    // MARK: Aux
     private func setupConstraintsTableView() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
@@ -62,7 +69,7 @@ extension PopularRepositoriesView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PopularRepositoriesCell.identifer,for: indexPath) as! PopularRepositoriesCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: PopularRepositoriesCell.identifer, for: indexPath) as! PopularRepositoriesCell
 
         let repository = popularRepositories[indexPath.row]
         cell.setup(for: repository)
@@ -74,6 +81,9 @@ extension PopularRepositoriesView: UITableViewDataSource {
         1
     }
 
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let repository = popularRepositories[indexPath.row]
+        delegate?.userDidTapOnTheRow(repository)
+    }
 }
-

@@ -7,10 +7,20 @@
 
 import UIKit
 
+protocol PopularRepositoresViewControllerDelegate {
+    func fetchRepositories()
+}
+
+protocol PopularDelegate {
+    func userDidTapOnTheRow(_ repository: RepositoryResponseItem)
+}
+
 class PopularRepositoresViewController: UIViewController {
 
-    private lazy var viewPopularRepositories = PopularRepositoriesView()
+    // MARK: Properties
+    private lazy var viewPopularRepositories = PopularRepositoriesView(delegate: self)
 
+    // MARK: Life Cycle
     override func loadView() {
         view = viewPopularRepositories
     }
@@ -18,14 +28,17 @@ class PopularRepositoresViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "GitHub JavaPop"
-        navigationController?.navigationBar.backgroundColor = .darkGray
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = .darkGray
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
     }
 
     override func viewWillAppear(_ animated: Bool) {
         fetchRepositories()
     }
+}
 
+extension PopularRepositoresViewController: PopularRepositoresViewControllerDelegate {
     func fetchRepositories() {
         Service.getRepositories { result in
             switch result {
@@ -37,5 +50,12 @@ class PopularRepositoresViewController: UIViewController {
                     return
             }
         }
+    }
+}
+
+extension PopularRepositoresViewController: PopularDelegate {
+    func userDidTapOnTheRow(_ repository: RepositoryResponseItem) {
+        let controller = PullsRequestViewController(username: repository.owner.login, repositoryTitle: repository.name, html: repository.htmlURL)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

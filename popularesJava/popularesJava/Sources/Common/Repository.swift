@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct RepositoryResponse: Codable {
     let items: [RepositoryResponseItem]

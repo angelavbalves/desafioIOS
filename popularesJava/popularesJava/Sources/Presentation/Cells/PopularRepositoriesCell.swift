@@ -10,8 +10,22 @@ import UIKit
 
 class PopularRepositoriesCell: UITableViewCell {
 
+    // MARK: Properties
     static let identifer = "idCell"
 
+    // MARK: Init
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addViews()
+        buildConstraintsCell()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Views
     private var stackViewTotal: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,11 +50,27 @@ class PopularRepositoriesCell: UITableViewCell {
         return stackView
     }()
 
-    private var stackViewIcons: UIStackView = {
+    private var stackViewInfos: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 12
+
+        return stackView
+    }()
+
+    private var stackViewWithIconFork: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+
+        return stackView
+    }()
+
+    private var stackViewWithIconStar: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
 
         return stackView
     }()
@@ -89,24 +119,58 @@ class PopularRepositoriesCell: UITableViewCell {
         return label
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addViews()
-        buildConstraintsCell()
-    }
+    private var labelForks: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .systemYellow
+        label.textAlignment = .center
 
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+        return label
+    }()
 
+    private var labelStars: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .systemYellow
+        label.textAlignment = .center
+
+        return label
+    }()
+
+    private var iconForks: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "tuningfork")
+
+        return imageView
+    }()
+
+    private var iconStars: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "star.fill")
+
+        return imageView
+    }()
+
+
+    // MARK: Aux
     func addViews() {
         contentView.addSubview(stackViewTotal)
         stackViewTotal.addArrangedSubview(stackViewDescription)
         stackViewTotal.addArrangedSubview(stackViewPerson)
         stackViewDescription.addArrangedSubview(repositoryNameLabel)
         stackViewDescription.addArrangedSubview(descriptionLabel)
-        stackViewDescription.addArrangedSubview(UIView())
+        stackViewDescription.addArrangedSubview(stackViewInfos)
+        stackViewInfos.addArrangedSubview(stackViewWithIconFork)
+        stackViewInfos.addArrangedSubview(UIView())
+        stackViewInfos.addArrangedSubview(stackViewWithIconStar)
+        stackViewWithIconFork.addArrangedSubview(iconForks)
+        stackViewWithIconFork.addArrangedSubview(labelForks)
+        stackViewWithIconStar.addArrangedSubview(iconStars)
+        stackViewWithIconStar.addArrangedSubview(labelStars)
         stackViewPerson.addArrangedSubview(userImageView)
         stackViewPerson.addArrangedSubview(username)
     }
@@ -121,11 +185,18 @@ class PopularRepositoriesCell: UITableViewCell {
             stackViewDescription.topAnchor.constraint(equalTo: stackViewTotal.topAnchor, constant: 6),
             stackViewDescription.leadingAnchor.constraint(equalTo: stackViewTotal.leadingAnchor, constant: 6),
 
+            stackViewInfos.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 6),
+
             stackViewPerson.trailingAnchor.constraint(equalTo: stackViewTotal.trailingAnchor, constant: 6),
 
             userImageView.widthAnchor.constraint(equalToConstant: 100),
             userImageView.heightAnchor.constraint(equalToConstant: 100),
 
+            iconForks.widthAnchor.constraint(equalToConstant: 16),
+            iconForks.heightAnchor.constraint(equalToConstant: 16),
+
+            iconStars.widthAnchor.constraint(equalToConstant: 16),
+            iconStars.heightAnchor.constraint(equalToConstant: 16)
         ])
     }
 
@@ -137,6 +208,8 @@ class PopularRepositoriesCell: UITableViewCell {
         }
         userImageView.downloadImage(from: url)
         repositoryNameLabel.text = repository.name
+        labelForks.text = String(repository.forks)
+        labelStars.text = String(repository.stargazersCount)
     }
 }
 
