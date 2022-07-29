@@ -11,16 +11,16 @@ import UIKit
 class PullsRequestViewController: UIViewController {
 
     // MARK: Properties
-    lazy var viewPulls = PullsRequestView(openURL: openURL)
+    lazy var viewPulls = PullsRequestView(openURL: openURL(_:), presentAlert: presentAlert(_:))
     let username: String
     let repositoryTitle: String
-    let html: String
+//    let html: String
 
     // MARK: Init
-    init(username: String, repositoryTitle: String, html: String) {
+    init(username: String, repositoryTitle: String) {
         self.username = username
         self.repositoryTitle = repositoryTitle
-        self.html = html
+//        self.html = html
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,7 +44,7 @@ class PullsRequestViewController: UIViewController {
 
     // MARK: Aux
     func fetchPullsRequest() {
-        Service.getPullsRequest(username: username, repositoryTitle: repositoryTitle, html: html) { result in
+        Service.getPullsRequest(username: username, repositoryTitle: repositoryTitle) { result in
             switch result {
                 case let .success(pullRequestResults):
                     DispatchQueue.main.async { [weak self] in
@@ -55,9 +55,11 @@ class PullsRequestViewController: UIViewController {
         }
     }
 
-    func openURL() {
-        if let html = URL(string: html) {
-            UIApplication.shared.open(html)
-        }
+    func openURL(_ url: URL) {
+        UIApplication.shared.open(url)
+    }
+
+    func presentAlert(_ alertController: UIAlertController) {
+        present(alertController, animated: true)
     }
 }

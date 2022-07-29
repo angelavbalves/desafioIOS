@@ -12,11 +12,13 @@ class PullsRequestView: UIView {
 
     // MARK: Properties
     var pullsRequest: [PullRequestResponseItem] = []
-    var openURL: () -> Void
+    var openURL: (_ url: URL) -> Void
+    var presentAlert: (_ alertController: UIAlertController) -> Void
 
     // MARK: Init
-    init(openURL: @escaping () -> Void) {
+    init(openURL: @escaping (_ url: URL) -> Void, presentAlert: @escaping (_ alertController: UIAlertController) -> Void) {
         self.openURL = openURL
+        self.presentAlert = presentAlert
         super.init(frame: .zero)
         tableView.register(PullsRequestCell.self, forCellReuseIdentifier: PullsRequestCell.identifer)
         addSubview(tableView)
@@ -76,6 +78,12 @@ extension PullsRequestView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        openURL()
+        let pullSelect = pullsRequest[indexPath.row]
+        guard let pullHtmlUrl = URL(string: pullSelect.html_url ?? "") else {
+            let alert = UIAlertController(title: "Error", message: "There isn't url to open in browser", preferredStyle: .alert)
+            presentAlert(alert)
+            return
+        }
+        openURL(pullHtmlUrl)
     }
 }

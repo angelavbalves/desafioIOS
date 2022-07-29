@@ -55,7 +55,7 @@ extension PopularRepositoresViewController: PopularRepositoresViewControllerDele
 
 extension PopularRepositoresViewController: PopularDelegate {
     func userDidTapOnTheRow(_ repository: RepositoryResponseItem) {
-        let controller = PullsRequestViewController(username: repository.owner.login, repositoryTitle: repository.name, html: repository.htmlURL)
+        let controller = PullsRequestViewController(username: repository.owner.login, repositoryTitle: repository.name)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
