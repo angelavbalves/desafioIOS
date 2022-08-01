@@ -43,5 +43,3 @@ struct RepositoryResponseItem: Codable {
         case stargazersCount = "stargazers_count"
     }
 }
-
-

@@ -7,17 +7,12 @@
 
 import Foundation
 
-struct PullRequestResponse: Codable {
-    let items: [PullRequestResponseItem]
-}
-
 struct PullRequestResponseItem: Codable {
-    let number: Int
     let title: String
     let user: User
     let body: String?
     let updated_at: String
-    let html_url: String
+    let html_url: String?
 }
 
 struct User: Codable {

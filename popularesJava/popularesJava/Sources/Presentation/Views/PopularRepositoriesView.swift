@@ -12,14 +12,15 @@ class PopularRepositoriesView: UIView {
 
     // MARK: Properties
     private var popularRepositories: [RepositoryResponseItem] = []
-    var delegate: PopularDelegate?
+
+    var delegate: PopularRepositoresViewControllerDelegate?
 
     // MARK: Init
-    init(delegate: PopularDelegate) {
+    init(delegate: PopularRepositoresViewControllerDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
         addSubview(tableView)
-        setupConstraintsTableView()
+        setupConstraints()
         tableView.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
@@ -41,18 +42,28 @@ class PopularRepositoriesView: UIView {
     }()
 
     // MARK: Aux
-    private func setupConstraintsTableView() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
         ])
     }
 
     func reloadTableViewWith(popularRepositories: [RepositoryResponseItem]) {
-        self.popularRepositories = popularRepositories
+        self.popularRepositories += popularRepositories
         tableView.reloadData()
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+
+        if offsetY > contentHeight - scrollView.frame.size.height {
+            delegate?.fetchRepositories()
+        }
     }
 }
 

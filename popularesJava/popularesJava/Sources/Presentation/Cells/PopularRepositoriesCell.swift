@@ -26,7 +26,7 @@ class PopularRepositoriesCell: UITableViewCell {
     }
 
     // MARK: Views
-    private var stackViewTotal: UIStackView = {
+    private var totalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -34,7 +34,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return stackView
     }()
 
-    private var stackViewDescription: UIStackView = {
+    private var descriptionStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -42,7 +42,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return stackView
     }()
 
-    private var stackViewPerson: UIStackView = {
+    private var personStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -50,7 +50,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return stackView
     }()
 
-    private var stackViewInfos: UIStackView = {
+    private var infosStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -59,7 +59,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return stackView
     }()
 
-    private var stackViewWithIconFork: UIStackView = {
+    private var iconForkStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -67,7 +67,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return stackView
     }()
 
-    private var stackViewWithIconStar: UIStackView = {
+    private var iconStarStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -108,7 +108,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return image
     }()
 
-    private var username: UILabel = {
+    private var usernameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14)
@@ -119,7 +119,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return label
     }()
 
-    private var labelForks: UILabel = {
+    private var forksLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18)
@@ -129,7 +129,7 @@ class PopularRepositoriesCell: UITableViewCell {
         return label
     }()
 
-    private var labelStars: UILabel = {
+    private var starsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18)
@@ -155,39 +155,36 @@ class PopularRepositoriesCell: UITableViewCell {
         return imageView
     }()
 
-
     // MARK: Aux
     func addViews() {
-        contentView.addSubview(stackViewTotal)
-        stackViewTotal.addArrangedSubview(stackViewDescription)
-        stackViewTotal.addArrangedSubview(stackViewPerson)
-        stackViewDescription.addArrangedSubview(repositoryNameLabel)
-        stackViewDescription.addArrangedSubview(descriptionLabel)
-        stackViewDescription.addArrangedSubview(stackViewInfos)
-        stackViewInfos.addArrangedSubview(stackViewWithIconFork)
-        stackViewInfos.addArrangedSubview(UIView())
-        stackViewInfos.addArrangedSubview(stackViewWithIconStar)
-        stackViewWithIconFork.addArrangedSubview(iconForks)
-        stackViewWithIconFork.addArrangedSubview(labelForks)
-        stackViewWithIconStar.addArrangedSubview(iconStars)
-        stackViewWithIconStar.addArrangedSubview(labelStars)
-        stackViewPerson.addArrangedSubview(userImageView)
-        stackViewPerson.addArrangedSubview(username)
+        contentView.addSubview(totalStackView)
+        totalStackView.addArrangedSubview(descriptionStackView)
+        totalStackView.addArrangedSubview(personStackView)
+        descriptionStackView.addArrangedSubview(repositoryNameLabel)
+        descriptionStackView.addArrangedSubview(descriptionLabel)
+        descriptionStackView.addArrangedSubview(infosStackView)
+        infosStackView.addArrangedSubview(iconForkStackView)
+        infosStackView.addArrangedSubview(UIView())
+        infosStackView.addArrangedSubview(iconStarStackView)
+        iconForkStackView.addArrangedSubview(iconForks)
+        iconForkStackView.addArrangedSubview(forksLabel)
+        iconStarStackView.addArrangedSubview(iconStars)
+        iconStarStackView.addArrangedSubview(starsLabel)
+        personStackView.addArrangedSubview(userImageView)
+        personStackView.addArrangedSubview(usernameLabel)
     }
 
     func buildConstraintsCell() {
         NSLayoutConstraint.activate([
-            stackViewTotal.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            stackViewTotal.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            stackViewTotal.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            stackViewTotal.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -24),
+            totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
+            totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            totalStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -24),
 
-            stackViewDescription.topAnchor.constraint(equalTo: stackViewTotal.topAnchor, constant: 6),
-            stackViewDescription.leadingAnchor.constraint(equalTo: stackViewTotal.leadingAnchor, constant: 6),
+            descriptionStackView.topAnchor.constraint(equalTo: totalStackView.topAnchor),
+            descriptionStackView.leadingAnchor.constraint(equalTo: totalStackView.leadingAnchor),
 
-            stackViewInfos.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 6),
-
-            stackViewPerson.trailingAnchor.constraint(equalTo: stackViewTotal.trailingAnchor, constant: 6),
+            personStackView.trailingAnchor.constraint(equalTo: totalStackView.trailingAnchor),
 
             userImageView.widthAnchor.constraint(equalToConstant: 100),
             userImageView.heightAnchor.constraint(equalToConstant: 100),
@@ -201,15 +198,15 @@ class PopularRepositoriesCell: UITableViewCell {
     }
 
     func setup(for repository: RepositoryResponseItem) {
-        username.text = repository.owner.login
+        usernameLabel.text = repository.owner.login
         descriptionLabel.text = repository.description
         guard let url = URL(string: repository.owner.avatarURL) else {
             return
         }
         userImageView.downloadImage(from: url)
         repositoryNameLabel.text = repository.name
-        labelForks.text = String(repository.forks)
-        labelStars.text = String(repository.stargazersCount)
+        forksLabel.text = String(repository.forks)
+        starsLabel.text = String(repository.stargazersCount)
     }
 }
 

@@ -26,7 +26,7 @@ class PullsRequestCell: UITableViewCell {
     }
 
     // MARK: Views
-    private var stackViewTotal: UIStackView = {
+    private var totalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -35,7 +35,7 @@ class PullsRequestCell: UITableViewCell {
         return stackView
     }()
 
-    private var titlePullRequest: UILabel = {
+    private var titlePullRequestLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -57,7 +57,7 @@ class PullsRequestCell: UITableViewCell {
         return label
     }()
 
-    private var stackViewUser: UIStackView = {
+    private var userStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -67,7 +67,7 @@ class PullsRequestCell: UITableViewCell {
         return stackView
     }()
 
-    private var stackViewData: UIStackView = {
+    private var DataStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -75,7 +75,7 @@ class PullsRequestCell: UITableViewCell {
         return stackView
     }()
 
-    private var userImage: UIImageView = {
+    private var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 30
@@ -84,7 +84,7 @@ class PullsRequestCell: UITableViewCell {
         return imageView
     }()
 
-    private var username: UILabel = {
+    private var usernameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14)
@@ -94,7 +94,7 @@ class PullsRequestCell: UITableViewCell {
         return label
     }()
 
-    private var dateUpdate: UILabel = {
+    private var dateUpdateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 10)
@@ -106,39 +106,40 @@ class PullsRequestCell: UITableViewCell {
 
     // MARK: Aux
     func setupSubViews() {
-        contentView.addSubview(stackViewTotal)
-        stackViewTotal.addArrangedSubview(titlePullRequest)
-        stackViewTotal.addArrangedSubview(descriptionLabel)
-        stackViewTotal.addArrangedSubview(stackViewUser)
-        stackViewUser.addArrangedSubview(userImage)
-        stackViewUser.addArrangedSubview(stackViewData)
-        stackViewData.addArrangedSubview(username)
-        stackViewData.addArrangedSubview(dateUpdate)
-        stackViewData.addArrangedSubview(UIView())
+        contentView.addSubview(totalStackView)
+        totalStackView.addArrangedSubview(titlePullRequestLabel)
+        totalStackView.addArrangedSubview(descriptionLabel)
+        totalStackView.addArrangedSubview(userStackView)
+        userStackView.addArrangedSubview(userImageView)
+        userStackView.addArrangedSubview(DataStackView)
+        DataStackView.addArrangedSubview(usernameLabel)
+        DataStackView.addArrangedSubview(dateUpdateLabel)
+        DataStackView.addArrangedSubview(UIView())
     }
 
     func buildConstraints() {
         NSLayoutConstraint.activate([
-            stackViewTotal.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            stackViewTotal.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            stackViewTotal.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            stackViewTotal.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -24),
+            totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
+            totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            totalStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -24),
 
-            stackViewUser.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24),
-            userImage.widthAnchor.constraint(equalToConstant: 60),
-            userImage.heightAnchor.constraint(equalToConstant: 60),
+            userStackView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24),
+
+            userImageView.widthAnchor.constraint(equalToConstant: 60),
+            userImageView.heightAnchor.constraint(equalToConstant: 60),
 
         ])
     }
 
     func setup(for pullRequest: PullRequestResponseItem) {
-        titlePullRequest.text = pullRequest.title
-        username.text = pullRequest.user.login
+        titlePullRequestLabel.text = pullRequest.title
+        usernameLabel.text = pullRequest.user.login
         descriptionLabel.text = pullRequest.body
         guard let url = URL(string: pullRequest.user.avatar_url) else {
             return
         }
-        userImage.downloadImage(from: url)
-        dateUpdate.text = pullRequest.updated_at
+        userImageView.downloadImage(from: url)
+        dateUpdateLabel.text = pullRequest.updated_at
     }
 }

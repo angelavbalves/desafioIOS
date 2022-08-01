@@ -9,16 +9,14 @@ import UIKit
 
 protocol PopularRepositoresViewControllerDelegate {
     func fetchRepositories()
-}
-
-protocol PopularDelegate {
     func userDidTapOnTheRow(_ repository: RepositoryResponseItem)
 }
 
-class PopularRepositoresViewController: UIViewController {
+class PopularRepositoresViewController: JPViewController {
 
     // MARK: Properties
     private lazy var viewPopularRepositories = PopularRepositoriesView(delegate: self)
+    var currentPage = 1
 
     // MARK: Life Cycle
     override func loadView() {
@@ -34,26 +32,28 @@ class PopularRepositoresViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchRepositories()
     }
 }
 
 extension PopularRepositoresViewController: PopularRepositoresViewControllerDelegate {
     func fetchRepositories() {
-        Service.getRepositories { result in
+        loadingView.show()
+        Service.getRepositories(page: currentPage) { result in
             switch result {
                 case let .success(repositoryResult):
                     DispatchQueue.main.async { [weak self] in
                         self?.viewPopularRepositories.reloadTableViewWith(popularRepositories: repositoryResult.items)
+                        self?.loadingView.hide()
+                        self?.currentPage += 1
                     }
                 case .failure:
                     return
             }
         }
     }
-}
 
-extension PopularRepositoresViewController: PopularDelegate {
     func userDidTapOnTheRow(_ repository: RepositoryResponseItem) {
         let controller = PullsRequestViewController(username: repository.owner.login, repositoryTitle: repository.name)
         navigationController?.pushViewController(controller, animated: true)

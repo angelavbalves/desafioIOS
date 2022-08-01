@@ -8,19 +8,17 @@
 import Foundation
 import UIKit
 
-class PullsRequestViewController: UIViewController {
+class PullsRequestViewController: JPViewController {
 
     // MARK: Properties
     lazy var viewPulls = PullsRequestView(openURL: openURL(_:), presentAlert: presentAlert(_:))
     let username: String
     let repositoryTitle: String
-//    let html: String
 
     // MARK: Init
     init(username: String, repositoryTitle: String) {
         self.username = username
         self.repositoryTitle = repositoryTitle
-//        self.html = html
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,11 +42,13 @@ class PullsRequestViewController: UIViewController {
 
     // MARK: Aux
     func fetchPullsRequest() {
+        loadingView.show()
         Service.getPullsRequest(username: username, repositoryTitle: repositoryTitle) { result in
             switch result {
                 case let .success(pullRequestResults):
                     DispatchQueue.main.async { [weak self] in
                         self?.viewPulls.reloadTableViewWith(pullsRequest: pullRequestResults)
+                        self?.loadingView.hide()
                     }
                 case .failure: return
             }

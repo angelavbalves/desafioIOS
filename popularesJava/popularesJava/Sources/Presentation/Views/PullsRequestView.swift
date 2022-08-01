@@ -46,9 +46,9 @@ class PullsRequestView: UIView {
     // MARK: Aux
     func reloadTableViewWith(pullsRequest: [PullRequestResponseItem]) {
         self.pullsRequest = pullsRequest
-        print("😀 - \(pullsRequest.count)")
         tableView.reloadData()
     }
+
 }
 
 extension PullsRequestView: UITableViewDelegate {
