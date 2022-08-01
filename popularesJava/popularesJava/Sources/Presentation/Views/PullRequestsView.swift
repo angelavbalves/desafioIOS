@@ -1,5 +1,5 @@
 //
-//  PullsRequestView.swift
+//  PullRequestsView.swift
 //  popularesJava
 //
 //  Created by Angela Alves on 27/07/22.
@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-class PullsRequestView: UIView {
+class PullRequestsView: UIView {
 
     // MARK: Properties
-    var pullsRequest: [PullRequestResponseItem] = []
+    var pullRequests: [PullRequestResponseItem] = []
     var openURL: (_ url: URL) -> Void
     var presentAlert: (_ alertController: UIAlertController) -> Void
 
@@ -20,7 +20,7 @@ class PullsRequestView: UIView {
         self.openURL = openURL
         self.presentAlert = presentAlert
         super.init(frame: .zero)
-        tableView.register(PullsRequestCell.self, forCellReuseIdentifier: PullsRequestCell.identifer)
+        tableView.register(PullRequestsCell.self, forCellReuseIdentifier: PullRequestsCell.identifer)
         addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor),
@@ -44,30 +44,30 @@ class PullsRequestView: UIView {
     }()
 
     // MARK: Aux
-    func reloadTableViewWith(pullsRequest: [PullRequestResponseItem]) {
-        self.pullsRequest = pullsRequest
+    func reloadTableViewWith(pullRequests: [PullRequestResponseItem]) {
+        self.pullRequests = pullRequests
         tableView.reloadData()
     }
 
 }
 
-extension PullsRequestView: UITableViewDelegate {
+extension PullRequestsView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
 }
 
-extension PullsRequestView: UITableViewDataSource {
+extension PullRequestsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        pullsRequest.count
+        pullRequests.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PullsRequestCell.identifer, for: indexPath) as! PullsRequestCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: PullRequestsCell.identifer, for: indexPath) as! PullRequestsCell
 
-        let pulls = pullsRequest[indexPath.row]
-        cell.setup(for: pulls)
+        let pull = pullRequests[indexPath.row]
+        cell.setup(for: pull)
 
         return cell
     }
@@ -78,7 +78,7 @@ extension PullsRequestView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let pullSelect = pullsRequest[indexPath.row]
+        let pullSelect = pullRequests[indexPath.row]
         guard let pullHtmlUrl = URL(string: pullSelect.html_url ?? "") else {
             let alert = UIAlertController(title: "Error", message: "There isn't url to open in browser", preferredStyle: .alert)
             presentAlert(alert)

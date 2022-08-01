@@ -1,5 +1,5 @@
 //
-//  PullsRequestViewController.swift
+//  PullRequestsViewController.swift
 //  popularesJava
 //
 //  Created by Angela Alves on 27/07/22.
@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-class PullsRequestViewController: JPViewController {
+class PullRequestsViewController: JPViewController {
 
     // MARK: Properties
-    lazy var viewPulls = PullsRequestView(openURL: openURL(_:), presentAlert: presentAlert(_:))
+    lazy var pullRequestsView = PullRequestsView(openURL: openURL(_:), presentAlert: presentAlert(_:))
     let username: String
     let repositoryTitle: String
 
@@ -29,7 +29,7 @@ class PullsRequestViewController: JPViewController {
 
     // MARK: Life Cycle
     override func loadView() {
-        view = viewPulls
+        view = pullRequestsView
     }
 
     override func viewDidLoad() {
@@ -37,18 +37,21 @@ class PullsRequestViewController: JPViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        fetchPullsRequest()
+        fetchPullRequests()
     }
 
     // MARK: Aux
-    func fetchPullsRequest() {
+    func fetchPullRequests() {
         loadingView.show()
-        Service.getPullsRequest(username: username, repositoryTitle: repositoryTitle) { result in
+        Service.getPullRequests(username: username, repositoryTitle: repositoryTitle) { result in
             switch result {
                 case let .success(pullRequestResults):
                     DispatchQueue.main.async { [weak self] in
-                        self?.viewPulls.reloadTableViewWith(pullsRequest: pullRequestResults)
+                        self?.pullRequestsView.reloadTableViewWith(pullRequests: pullRequestResults)
                         self?.loadingView.hide()
+                        if pullRequestResults.isEmpty {
+                            self?.emptyView.show()
+                        }
                     }
                 case .failure: return
             }

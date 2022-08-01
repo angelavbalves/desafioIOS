@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E3C5BE42898627300A35B70 /* JPEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C5BE32898627200A35B70 /* JPEmptyView.swift */; };
 		8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BCE288ED95200220F2C /* AppDelegate.swift */; };
 		8E678BD1288ED95200220F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD0288ED95200220F2C /* SceneDelegate.swift */; };
 		8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD2288ED95200220F2C /* PopularRepositoresViewController.swift */; };
@@ -16,15 +17,16 @@
 		8E678BEC288EE44400220F2C /* PopularRepositoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */; };
 		8E678BEF288EEA8E00220F2C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BEE288EEA8E00220F2C /* Service.swift */; };
 		8E678BF2288F211600220F2C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BF1288F211600220F2C /* Repository.swift */; };
-		8EB59D2628917BB10033A4E7 /* PullsRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D2528917BB10033A4E7 /* PullsRequestViewController.swift */; };
-		8EB59D2828917BEA0033A4E7 /* PullsRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D2728917BEA0033A4E7 /* PullsRequestView.swift */; };
-		8EB59D2A28917C040033A4E7 /* PullsRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D2928917C040033A4E7 /* PullsRequestCell.swift */; };
+		8EB59D2628917BB10033A4E7 /* PullRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D2528917BB10033A4E7 /* PullRequestsViewController.swift */; };
+		8EB59D2828917BEA0033A4E7 /* PullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D2728917BEA0033A4E7 /* PullRequestsView.swift */; };
+		8EB59D2A28917C040033A4E7 /* PullRequestsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D2928917C040033A4E7 /* PullRequestsCell.swift */; };
 		8EB59D2C2891AFBD0033A4E7 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D2B2891AFBD0033A4E7 /* PullRequest.swift */; };
 		8EB59D3728983CBF0033A4E7 /* JPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D3628983CBF0033A4E7 /* JPViewController.swift */; };
 		8EB59D3928983D260033A4E7 /* JPLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB59D3828983D260033A4E7 /* JPLoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E3C5BE32898627200A35B70 /* JPEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPEmptyView.swift; sourceTree = "<group>"; };
 		8E678BCB288ED95200220F2C /* popularesJava.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = popularesJava.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E678BCE288ED95200220F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E678BD0288ED95200220F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,9 +38,9 @@
 		8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRepositoriesCell.swift; sourceTree = "<group>"; };
 		8E678BEE288EEA8E00220F2C /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		8E678BF1288F211600220F2C /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		8EB59D2528917BB10033A4E7 /* PullsRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullsRequestViewController.swift; sourceTree = "<group>"; };
-		8EB59D2728917BEA0033A4E7 /* PullsRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullsRequestView.swift; sourceTree = "<group>"; };
-		8EB59D2928917C040033A4E7 /* PullsRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullsRequestCell.swift; sourceTree = "<group>"; };
+		8EB59D2528917BB10033A4E7 /* PullRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsViewController.swift; sourceTree = "<group>"; };
+		8EB59D2728917BEA0033A4E7 /* PullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsView.swift; sourceTree = "<group>"; };
+		8EB59D2928917C040033A4E7 /* PullRequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsCell.swift; sourceTree = "<group>"; };
 		8EB59D2B2891AFBD0033A4E7 /* PullRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		8EB59D3628983CBF0033A4E7 /* JPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPViewController.swift; sourceTree = "<group>"; };
 		8EB59D3828983D260033A4E7 /* JPLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPLoadingView.swift; sourceTree = "<group>"; };
@@ -124,7 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				8E678BD2288ED95200220F2C /* PopularRepositoresViewController.swift */,
-				8EB59D2528917BB10033A4E7 /* PullsRequestViewController.swift */,
+				8EB59D2528917BB10033A4E7 /* PullRequestsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -133,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				8E678BE8288EE40D00220F2C /* PopularRepositoriesView.swift */,
-				8EB59D2728917BEA0033A4E7 /* PullsRequestView.swift */,
+				8EB59D2728917BEA0033A4E7 /* PullRequestsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */,
-				8EB59D2928917C040033A4E7 /* PullsRequestCell.swift */,
+				8EB59D2928917C040033A4E7 /* PullRequestsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				8EB59D3628983CBF0033A4E7 /* JPViewController.swift */,
+				8E3C5BE32898627200A35B70 /* JPEmptyView.swift */,
 				8EB59D3828983D260033A4E7 /* JPLoadingView.swift */,
 			);
 			path = Components;
@@ -245,16 +248,17 @@
 			files = (
 				8E678BF2288F211600220F2C /* Repository.swift in Sources */,
 				8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */,
-				8EB59D2A28917C040033A4E7 /* PullsRequestCell.swift in Sources */,
+				8EB59D2A28917C040033A4E7 /* PullRequestsCell.swift in Sources */,
 				8EB59D3928983D260033A4E7 /* JPLoadingView.swift in Sources */,
-				8EB59D2828917BEA0033A4E7 /* PullsRequestView.swift in Sources */,
+				8EB59D2828917BEA0033A4E7 /* PullRequestsView.swift in Sources */,
 				8E678BEC288EE44400220F2C /* PopularRepositoriesCell.swift in Sources */,
 				8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */,
 				8EB59D2C2891AFBD0033A4E7 /* PullRequest.swift in Sources */,
 				8E678BE9288EE40D00220F2C /* PopularRepositoriesView.swift in Sources */,
 				8E678BD1288ED95200220F2C /* SceneDelegate.swift in Sources */,
-				8EB59D2628917BB10033A4E7 /* PullsRequestViewController.swift in Sources */,
+				8EB59D2628917BB10033A4E7 /* PullRequestsViewController.swift in Sources */,
 				8EB59D3728983CBF0033A4E7 /* JPViewController.swift in Sources */,
+				8E3C5BE42898627300A35B70 /* JPEmptyView.swift in Sources */,
 				8E678BEF288EEA8E00220F2C /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

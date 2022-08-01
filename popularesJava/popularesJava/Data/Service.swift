@@ -37,7 +37,7 @@ class Service {
         }
     }
 
-    static func getPullsRequest(username: String, repositoryTitle: String, _ completion: @escaping (Result<[PullRequestResponseItem], PullRequestErrorState>) -> Void) {
+    static func getPullRequests(username: String, repositoryTitle: String, _ completion: @escaping (Result<[PullRequestResponseItem], PullRequestErrorState>) -> Void) {
         if let url = URL(string:
             "https://api.github.com/repos/\(username)/\(repositoryTitle)/pulls")
         {

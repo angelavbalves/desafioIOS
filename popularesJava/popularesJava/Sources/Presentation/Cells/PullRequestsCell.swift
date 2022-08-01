@@ -1,5 +1,5 @@
 //
-//  PullsRequestCell.swift
+//  PullRequestsCell.swift
 //  popularesJava
 //
 //  Created by Angela Alves on 27/07/22.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PullsRequestCell: UITableViewCell {
+class PullRequestsCell: UITableViewCell {
 
     // MARK: Properties
     static let identifer = "idCell"
@@ -30,7 +30,6 @@ class PullsRequestCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 6
 
         return stackView
     }()
@@ -124,7 +123,7 @@ class PullsRequestCell: UITableViewCell {
             totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             totalStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -24),
 
-            userStackView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 24),
+            userStackView.bottomAnchor.constraint(equalTo: totalStackView.bottomAnchor),
 
             userImageView.widthAnchor.constraint(equalToConstant: 60),
             userImageView.heightAnchor.constraint(equalToConstant: 60),
