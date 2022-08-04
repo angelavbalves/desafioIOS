@@ -20,7 +20,9 @@ class Service {
         case noConnection
     }
 
+    static let dispatchGroup = DispatchGroup()
     static func getRepositories(page: Int, _ completion: @escaping (Result<RepositoryResponse, RepositoryErrorState>) -> Void) {
+        dispatchGroup.enter()
         if let url = URL(string: "https://api.github.com/search/repositories?q=language:Java&sort=stars&order=desc&page=\(page)") {
             let task = URLSession.shared.dataTask(with: url) { data, _, error in
                 guard let data = data else { return }
@@ -32,12 +34,15 @@ class Service {
                     print(error)
                     completion(.failure(.generic))
                 }
+                self.dispatchGroup.leave()
             }
             task.resume()
+            dispatchGroup.wait()
         }
     }
 
     static func getPullRequests(username: String, repositoryTitle: String, _ completion: @escaping (Result<[PullRequestResponseItem], PullRequestErrorState>) -> Void) {
+        dispatchGroup.enter()
         if let url = URL(string:
             "https://api.github.com/repos/\(username)/\(repositoryTitle)/pulls")
         {
@@ -52,8 +57,10 @@ class Service {
                     print(error)
                     completion(.failure(.generic))
                 }
+                self.dispatchGroup.leave()
             }
             task.resume()
+            dispatchGroup.wait()
         }
     }
 }
