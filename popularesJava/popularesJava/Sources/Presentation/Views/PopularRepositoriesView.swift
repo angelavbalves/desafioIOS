@@ -12,6 +12,11 @@ class PopularRepositoriesView: UIView {
 
     // MARK: Properties
     private var popularRepositories: [RepositoryResponseItem] = []
+    var filteredRepositories: [RepositoryResponseItem] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     var delegate: PopularRepositoresViewControllerDelegate?
 
@@ -53,7 +58,18 @@ class PopularRepositoriesView: UIView {
     }
 
     func reloadTableViewWith(popularRepositories: [RepositoryResponseItem]) {
-        self.popularRepositories += popularRepositories
+        self.popularRepositories = popularRepositories
+        filteredRepositories += popularRepositories
+        tableView.reloadData()
+    }
+
+    func updateViewWithSearchResults(_ results: [RepositoryResponseItem]) {
+        filteredRepositories = results
+        tableView.reloadData()
+    }
+
+    func resetList() {
+        filteredRepositories = popularRepositories
         tableView.reloadData()
     }
 
@@ -76,13 +92,13 @@ extension PopularRepositoriesView: UITableViewDelegate {
 
 extension PopularRepositoriesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        popularRepositories.count
+        filteredRepositories.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PopularRepositoriesCell.identifer, for: indexPath) as! PopularRepositoriesCell
 
-        let repository = popularRepositories[indexPath.row]
+        let repository = filteredRepositories[indexPath.row]
         cell.setup(for: repository)
 
         return cell
@@ -94,7 +110,7 @@ extension PopularRepositoriesView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let repository = popularRepositories[indexPath.row]
+        let repository = filteredRepositories[indexPath.row]
         delegate?.userDidTapOnTheRow(repository)
     }
 }

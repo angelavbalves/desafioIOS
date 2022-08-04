@@ -9,6 +9,10 @@ import Foundation
 
 struct RepositoryResponse: Codable {
     let items: [RepositoryResponseItem]
+
+    enum CodingKeys: String, CodingKey {
+        case items
+    }
 }
 
 // MARK: - RepositoryResponseItem
