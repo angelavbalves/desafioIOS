@@ -96,7 +96,7 @@ extension PopularRepositoresViewController: UISearchBarDelegate {
 
         } else {
             let text = searchText.lowercased()
-            let filteredRepositories = popularRepositoriesView.filteredRepositories.filter { repository in
+            let filteredRepositories = popularRepositoriesView.popularRepositories.filter { repository in
                 repository.name.lowercased().contains(text)
             }
             popularRepositoriesView.updateViewWithSearchResults(filteredRepositories)
