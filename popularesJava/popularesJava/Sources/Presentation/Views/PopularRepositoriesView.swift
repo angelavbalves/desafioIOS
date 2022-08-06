@@ -11,12 +11,15 @@ import UIKit
 class PopularRepositoriesView: UIView {
 
     // MARK: Properties
-    private var popularRepositories: [RepositoryResponseItem] = []
+    private(set) var popularRepositories: [RepositoryResponseItem] = []
     var filteredRepositories: [RepositoryResponseItem] = [] {
         didSet {
             tableView.reloadData()
         }
     }
+
+    private var isFiltering = false
+    private var isLoadingNextPage = false
 
     var delegate: PopularRepositoresViewControllerDelegate?
 
@@ -61,23 +64,34 @@ class PopularRepositoriesView: UIView {
         self.popularRepositories = popularRepositories
         filteredRepositories += popularRepositories
         tableView.reloadData()
+        isLoadingNextPage = false
     }
 
     func updateViewWithSearchResults(_ results: [RepositoryResponseItem]) {
         filteredRepositories = results
+        isFiltering = true
         tableView.reloadData()
     }
 
     func resetList() {
         filteredRepositories = popularRepositories
+        isFiltering = false
         tableView.reloadData()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        let distanceFromBottom = contentHeight - offsetY
 
-        if offsetY > contentHeight - scrollView.frame.size.height {
+        if
+            !isFiltering,
+            !isLoadingNextPage,
+            contentHeight > height,
+            distanceFromBottom < height
+        {
+            isLoadingNextPage = true
             delegate?.fetchRepositories()
         }
     }
