@@ -21,9 +21,11 @@ class Service {
     }
 
     static let dispatchGroup = DispatchGroup()
-    static func getRepositories(page: Int, _ completion: @escaping (Result<RepositoryResponse, RepositoryErrorState>) -> Void) {
-        dispatchGroup.enter()
-        if let url = URL(string: "https://api.github.com/search/repositories?q=language:Java&sort=stars&order=desc&page=\(page)") {
+    static var number = 1
+    static func getRepositories(page: Int, language: String, _ completion: @escaping (Result<RepositoryResponse, RepositoryErrorState>) -> Void) {
+        print("🛑 Request - \(number)")
+        number += 1
+        if let url = URL(string: "https://api.github.com/search/repositories?q=language:\(language)&sort=stars&order=desc&page=\(page)") {
             let task = URLSession.shared.dataTask(with: url) { data, _, error in
                 guard let data = data else { return }
 
@@ -34,10 +36,8 @@ class Service {
                     print(error)
                     completion(.failure(.generic))
                 }
-                self.dispatchGroup.leave()
             }
             task.resume()
-            dispatchGroup.wait()
         }
     }
 
