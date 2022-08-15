@@ -69,11 +69,22 @@ class SearchView: UIView {
         return button
     }()
 
+    private var emptyTextField: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 22)
+        label.text = ""
+        label.textColor = .red
+
+        return label
+    }()
+
     func addViews() {
         addSubview(totalStackView)
         totalStackView.addArrangedSubview(titleLabel)
         totalStackView.addArrangedSubview(textField)
         totalStackView.addArrangedSubview(searchButton)
+        totalStackView.addArrangedSubview(emptyTextField)
     }
 
     func setupConstraints() {
@@ -86,8 +97,15 @@ class SearchView: UIView {
     @objc func searchButtonTapped() {
         textField.resignFirstResponder()
         if let text = textField.text {
-            didTapOnSearchButton(text)
-            textField.text = ""
+            if text != "" {
+                didTapOnSearchButton(text)
+                textField.text = ""
+                titleLabel.text = "Choose a language"
+                emptyTextField.text = ""
+            } else {
+                textField.layer.borderColor = UIColor.red.cgColor
+                emptyTextField.text = "You need to write something here!"
+            }
         }
     }
 }
