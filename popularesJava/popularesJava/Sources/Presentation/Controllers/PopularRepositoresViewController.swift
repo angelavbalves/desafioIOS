@@ -25,11 +25,12 @@ class PopularRepositoresViewController: JPViewController {
         self.language = language
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: Life Cycle
     override func loadView() {
         view = popularRepositoriesView
@@ -77,18 +78,29 @@ class PopularRepositoresViewController: JPViewController {
 }
 
 extension PopularRepositoresViewController: PopularRepositoresViewControllerDelegate {
+
     func fetchRepositories() {
         loadingView.show()
-        Service.getRepositories(page: currentPage, language: language) { result in
+        Service.makeRequest(endpoint: ApiEndpoints.repository(language: language, page: currentPage)) { (result: Result<RepositoryResponse, ErrorState>) in
             switch result {
                 case let .success(repositoryResult):
                     DispatchQueue.main.async { [weak self] in
+                        guard !repositoryResult.items.isEmpty else {
+                            self?.emptyView.show(title: "Ops! There's nothing to see here. Search again.", image: UIImage(named: "emptypullrequest")!)
+                            return
+                        }
                         self?.popularRepositoriesView.reloadTableViewWith(popularRepositories: repositoryResult.items)
                         self?.loadingView.hide()
                         self?.currentPage += 1
                     }
                 case .failure:
-                    return
+                    DispatchQueue.main.async { [weak self] in
+                        self?.errorView.show(
+                            title: "Ops, something went wrong here!",
+                            image: UIImage(named: "errorImage")!,
+                            retryAction: self?.fetchRepositories
+                        )
+                    }
             }
         }
     }

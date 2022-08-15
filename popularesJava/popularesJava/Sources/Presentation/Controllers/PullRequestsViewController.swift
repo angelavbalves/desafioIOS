@@ -41,19 +41,27 @@ class PullRequestsViewController: JPViewController {
     }
 
     // MARK: Aux
+
     func fetchPullRequests() {
         loadingView.show()
-        Service.getPullRequests(username: username, repositoryTitle: repositoryTitle) { result in
+        Service.makeRequest(endpoint: ApiEndpoints.pullRequest(username: username, repositoryTitle: repositoryTitle)) { (result: Result<[PullRequestResponseItem], ErrorState>) in
             switch result {
                 case let .success(pullRequestResults):
                     DispatchQueue.main.async { [weak self] in
+                        if pullRequestResults.isEmpty {
+                            self?.emptyView.show(title: "It's clean!", image: UIImage(named: "emptypullrequest")!)
+                        }
                         self?.pullRequestsView.reloadTableViewWith(pullRequests: pullRequestResults)
                         self?.loadingView.hide()
-                        if pullRequestResults.isEmpty {
-                            self?.emptyView.show()
-                        }
                     }
-                case .failure: return
+                case .failure:
+                    DispatchQueue.main.async { [weak self] in
+                        self?.errorView.show(
+                            title: "Ops, something went wrong here!",
+                            image: UIImage(named: "errorImage")!,
+                            retryAction: self?.fetchPullRequests
+                        )
+                    }
             }
         }
     }
