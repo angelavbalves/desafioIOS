@@ -1,4 +1,4 @@
-# Desafio: Repositórios mais populares em Java
+# Desafio: Repositórios mais populares
 Esse projeto está sendo desenvolvido com o objetivo de adquirir conhecimento na prática sobre swift para desenvolvimento mobile iOS. <br>
 
 # Descrição do projeto
