@@ -1,16 +1,17 @@
 //
-//  EmptyView.swift
+//  JPErrorView.swift
 //  popularesJava
 //
-//  Created by Angela Alves on 01/08/22.
+//  Created by Angela Alves on 11/08/22.
 //
 
 import Foundation
 import UIKit
 
-class JPEmptyView: UIView {
+class JPErrorView: UIView {
 
-    // MARK: Init
+    var retryAction: (() -> Void)?
+
     init() {
         super.init(frame: .zero)
         backgroundColor = .white
@@ -19,12 +20,10 @@ class JPEmptyView: UIView {
         isHidden = true
     }
 
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Views
     private var totalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +33,7 @@ class JPEmptyView: UIView {
         return stackView
     }()
 
-    private var emptyImage: UIImageView = {
+    private var errorImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -48,16 +47,25 @@ class JPEmptyView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18)
         label.tintColor = .gray
-        label.numberOfLines = 0
 
         return label
     }()
 
-    // MARK: Aux
+    private var refreshButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Try again", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.addTarget(self, action: #selector(retryButtonTappedAction), for: .touchUpInside)
+
+        return button
+    }()
+
     func addSubviews() {
         addSubview(totalStackView)
-        totalStackView.addArrangedSubview(emptyImage)
+        totalStackView.addArrangedSubview(errorImage)
         totalStackView.addArrangedSubview(titleLabel)
+        totalStackView.addArrangedSubview(refreshButton)
     }
 
     func setupConstraints() {
@@ -65,18 +73,24 @@ class JPEmptyView: UIView {
             totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             totalStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            emptyImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.3),
-            emptyImage.heightAnchor.constraint(equalTo: emptyImage.widthAnchor)
+            errorImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.3),
+            errorImage.heightAnchor.constraint(equalTo: errorImage.widthAnchor)
         ])
     }
 
-    func show(title: String, image: UIImage) {
+    func show(title: String, image: UIImage, retryAction: (() -> Void)?) {
         titleLabel.text = title
-        emptyImage.image = image
+        errorImage.image = image
+        self.retryAction = retryAction
         isHidden = false
     }
 
     func hide() {
         isHidden = true
+    }
+
+    @objc func retryButtonTappedAction() {
+        retryAction?()
+        hide()
     }
 }

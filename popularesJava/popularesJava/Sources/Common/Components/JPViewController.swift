@@ -12,15 +12,15 @@ class JPViewController: UIViewController {
 
     // MARK: Properties
     let loadingView = JPLoadingView()
-    let emptyView = JPEmptyView(title: "It's clean!",
-                                     description: "There isn't pull requests in this repository",
-                                     image: UIImage(named: "emptypullrequest")!)
+    let emptyView = JPEmptyView()
+    let errorView = JPErrorView()
 
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(loadingView)
         view.addSubview(emptyView)
+        view.addSubview(errorView)
         setupConstraintsView()
     }
 
@@ -28,6 +28,7 @@ class JPViewController: UIViewController {
     func setupConstraintsView() {
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         emptyView.translatesAutoresizingMaskIntoConstraints = false
+        errorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             loadingView.topAnchor.constraint(equalTo: view.topAnchor),
             loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -38,6 +39,11 @@ class JPViewController: UIViewController {
             emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            errorView.topAnchor.constraint(equalTo: view.topAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 }
