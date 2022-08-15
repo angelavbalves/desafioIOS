@@ -30,6 +30,7 @@ class PullRequestsCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.spacing = 12
 
         return stackView
     }()

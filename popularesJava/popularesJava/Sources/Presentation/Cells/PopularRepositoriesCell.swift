@@ -90,7 +90,7 @@ class PopularRepositoriesCell: UITableViewCell {
     private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
+        label.numberOfLines = 5
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .black
         label.textAlignment = .justified
