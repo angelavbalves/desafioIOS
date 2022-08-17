@@ -8,20 +8,13 @@
 import Foundation
 import UIKit
 
-class RPEmptyView: UIView {
+class RPEmptyView: RPView {
 
     // MARK: Init
-    init() {
-        super.init(frame: .zero)
+    override init() {
+        super.init()
         backgroundColor = .white
-        addSubviews()
-        setupConstraints()
         isHidden = true
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Views
@@ -54,13 +47,13 @@ class RPEmptyView: UIView {
     }()
 
     // MARK: Aux
-    func addSubviews() {
+    override func configureSubviews() {
         addSubview(totalStackView)
         totalStackView.addArrangedSubview(emptyImage)
         totalStackView.addArrangedSubview(titleLabel)
     }
 
-    func setupConstraints() {
+   override func configureConstraints() {
         NSLayoutConstraint.activate([
             totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             totalStackView.centerYAnchor.constraint(equalTo: centerYAnchor),

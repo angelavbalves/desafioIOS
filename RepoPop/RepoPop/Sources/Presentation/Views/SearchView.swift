@@ -8,16 +8,14 @@
 import Foundation
 import UIKit
 
-class SearchView: UIView {
+class SearchView: RPView {
 
     var didTapOnSearchButton: (_ language: String) -> Void
 
     init(didTapOnSearchButton: @escaping (_ language: String) -> Void) {
         self.didTapOnSearchButton = didTapOnSearchButton
-        super.init(frame: .zero)
+        super.init()
         textField.delegate = self
-        addViews()
-        setupConstraints()
     }
 
     @available(*, unavailable)
@@ -79,7 +77,7 @@ class SearchView: UIView {
         return label
     }()
 
-    func addViews() {
+    override func configureSubviews() {
         addSubview(totalStackView)
         totalStackView.addArrangedSubview(titleLabel)
         totalStackView.addArrangedSubview(textField)
@@ -87,7 +85,7 @@ class SearchView: UIView {
         totalStackView.addArrangedSubview(emptyTextField)
     }
 
-    func setupConstraints() {
+    override func configureConstraints() {
         NSLayoutConstraint.activate([
             totalStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor)

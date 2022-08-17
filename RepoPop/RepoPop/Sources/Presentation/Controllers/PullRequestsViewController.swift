@@ -51,7 +51,7 @@ class PullRequestsViewController: RPViewController {
                         if pullRequestResults.isEmpty {
                             self?.emptyView.show(title: "It's clean!", image: UIImage(named: "emptypullrequest")!)
                         }
-                        self?.pullRequestsView.reloadTableViewWith(pullRequests: pullRequestResults)
+                        self?.pullRequestsView.reloadTableView(with: pullRequestResults)
                         self?.loadingView.hide()
                     }
                 case .failure:

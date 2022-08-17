@@ -8,30 +8,12 @@
 import Foundation
 import UIKit
 
-class PullRequestsView: UIView {
+class PullRequestsView: RPView {
 
     // MARK: Properties
-    var pullRequests: [PullRequestResponseItem] = []
-    var openURL: (_ url: URL) -> Void
-    var presentAlert: (_ alertController: UIAlertController) -> Void
-
-    // MARK: Init
-    init(openURL: @escaping (_ url: URL) -> Void, presentAlert: @escaping (_ alertController: UIAlertController) -> Void) {
-        self.openURL = openURL
-        self.presentAlert = presentAlert
-        super.init(frame: .zero)
-        tableView.register(PullRequestsCell.self, forCellReuseIdentifier: PullRequestsCell.identifer)
-        addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor),
-            tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor)
-        ])
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var pullRequests: [PullRequestResponseItem] = []
+    private let openURL: (_ url: URL) -> Void
+    private let presentAlert: (_ alertController: UIAlertController) -> Void
 
     // MARK: Views
     private lazy var tableView: UITableView = {
@@ -39,16 +21,35 @@ class PullRequestsView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = RPView()
 
         return tableView
     }()
 
+    // MARK: Init
+    init(openURL: @escaping (_ url: URL) -> Void, presentAlert: @escaping (_ alertController: UIAlertController) -> Void) {
+        self.openURL = openURL
+        self.presentAlert = presentAlert
+        super.init()
+        tableView.register(PullRequestsCell.self, forCellReuseIdentifier: PullRequestsCell.identifer)
+    }
+
+    override func configureSubviews() {
+        addSubview(tableView)
+    }
+
+    override func configureConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor),
+            tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor)
+        ])
+    }
+
     // MARK: Aux
-    func reloadTableViewWith(pullRequests: [PullRequestResponseItem]) {
+    func reloadTableView(with pullRequests: [PullRequestResponseItem]) {
         self.pullRequests = pullRequests
         tableView.reloadData()
     }
-
 }
 
 extension PullRequestsView: UITableViewDelegate {

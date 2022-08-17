@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PopularRepositoriesView: UIView {
+class PopularRepositoriesView: RPView {
 
     // MARK: Properties
     private(set) var popularRepositories: [RepositoryResponseItem] = []
@@ -26,9 +26,7 @@ class PopularRepositoriesView: UIView {
     // MARK: Init
     init(delegate: PopularRepositoresViewControllerDelegate) {
         self.delegate = delegate
-        super.init(frame: .zero)
-        addSubview(tableView)
-        setupConstraints()
+        super.init()
         tableView.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
@@ -50,7 +48,11 @@ class PopularRepositoriesView: UIView {
     }()
 
     // MARK: Aux
-    private func setupConstraints() {
+    override func configureSubviews() {
+        addSubview(tableView)
+    }
+    
+    override func configureConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),

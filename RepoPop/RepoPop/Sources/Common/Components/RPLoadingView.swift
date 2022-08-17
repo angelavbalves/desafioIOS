@@ -8,31 +8,24 @@
 import Foundation
 import UIKit
 
-class RPLoadingView: UIView {
+class RPLoadingView: RPView {
 
     // MARK: Init
-    init() {
-        super.init(frame: .zero)
-        addActiveIndicator()
-        setupConstraints()
+    override init() {
+        super.init()
         isHidden = true
         backgroundColor = .white
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: View
     let activeIndicator = UIActivityIndicatorView(style: .large)
 
     // MARK: Aux
-    private func addActiveIndicator() {
+    override func configureSubviews() {
         addSubview(activeIndicator)
     }
 
-    private func setupConstraints() {
+    override func configureConstraints() {
         activeIndicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             activeIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),

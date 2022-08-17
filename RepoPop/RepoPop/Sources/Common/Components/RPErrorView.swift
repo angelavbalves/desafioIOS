@@ -8,20 +8,14 @@
 import Foundation
 import UIKit
 
-class RPErrorView: UIView {
+class RPErrorView: RPView {
 
     var retryAction: (() -> Void)?
 
-    init() {
-        super.init(frame: .zero)
+    override init() {
+        super.init()
         backgroundColor = .white
-        addSubviews()
-        setupConstraints()
         isHidden = true
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     private var totalStackView: UIStackView = {
@@ -61,14 +55,14 @@ class RPErrorView: UIView {
         return button
     }()
 
-    func addSubviews() {
+    override func configureSubviews() {
         addSubview(totalStackView)
         totalStackView.addArrangedSubview(errorImage)
         totalStackView.addArrangedSubview(titleLabel)
         totalStackView.addArrangedSubview(refreshButton)
     }
 
-    func setupConstraints() {
+    override func configureConstraints() {
         NSLayoutConstraint.activate([
             totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             totalStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
