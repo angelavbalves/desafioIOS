@@ -72,7 +72,7 @@ class SearchView: RPView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 22)
         label.text = ""
-        label.textColor = .red
+        label.textColor = .systemRed
 
         return label
     }()
@@ -98,11 +98,13 @@ class SearchView: RPView {
             if text != "" {
                 didTapOnSearchButton(text)
                 textField.text = ""
-                titleLabel.text = "Choose a language"
                 emptyTextField.text = ""
+                textField.layer.borderWidth = 0
             } else {
-                textField.layer.borderColor = UIColor.red.cgColor
-                emptyTextField.text = "You need to write something here!"
+                textField.layer.borderColor = UIColor.systemRed.cgColor
+                textField.layer.borderWidth = 2
+                textField.layer.cornerRadius = 6
+                emptyTextField.text = "The field can't be blank"
             }
         }
     }
@@ -111,6 +113,7 @@ class SearchView: RPView {
 extension SearchView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        searchButtonTapped()
         return true
     }
 }
