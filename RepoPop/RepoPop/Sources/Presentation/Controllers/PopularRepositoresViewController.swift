@@ -46,6 +46,10 @@ class PopularRepositoresViewController: RPViewController {
         fetchRepositories()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        clearFilter()
+    }
+
     func configureNav() {
         navigationItem.title = "GitHub RepoPop"
         navigationController?.navigationBar.isTranslucent = false
@@ -109,25 +113,42 @@ extension PopularRepositoresViewController: PopularRepositoresViewControllerDele
         let controller = PullRequestsViewController(username: repository.owner.login, repositoryTitle: repository.name)
         navigationController?.pushViewController(controller, animated: true)
     }
-}
 
-extension PopularRepositoresViewController: UISearchBarDelegate {
+    func clearFilter() {
+        searchBar.resignFirstResponder()
+        search(shouldShow: false)
+        popularRepositoriesView.resetList()
+    }
 
-    func searchBar(_: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
+    func filter() {
+        if searchBar.text == nil {
             popularRepositoriesView.resetList()
-
         } else {
-            let text = searchText.lowercased()
+            guard let text = searchBar.text?.lowercased() else { return }
             let filteredRepositories = popularRepositoriesView.popularRepositories.filter { repository in
                 repository.name.lowercased().contains(text)
             }
             popularRepositoriesView.updateViewWithSearchResults(filteredRepositories)
         }
     }
+}
+
+extension PopularRepositoresViewController: UISearchBarDelegate {
+
+    func searchBar(_: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            clearFilter()
+        } else {
+            filter()
+        }
+    }
 
     func searchBarCancelButtonClicked(_: UISearchBar) {
-        popularRepositoriesView.resetList()
-        search(shouldShow: false)
+        clearFilter()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        filter()
     }
 }
