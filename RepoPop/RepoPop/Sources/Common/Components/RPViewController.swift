@@ -10,6 +10,16 @@ import UIKit
 
 class RPViewController: UIViewController {
 
+    //  MARK: Init
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: Properties
     let loadingView = RPLoadingView()
     let emptyView = RPEmptyView()
