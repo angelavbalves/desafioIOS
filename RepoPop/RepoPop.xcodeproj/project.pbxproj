@@ -71,6 +71,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E01028E28B3D1D800F796D5 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				8E01029128B3D23300F796D5 /* Search */,
+				8E01029028B3D20F00F796D5 /* PullRequests */,
+				8E01028F28B3D1ED00F796D5 /* PopularRepositories */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		8E01028F28B3D1ED00F796D5 /* PopularRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				8E678BD2288ED95200220F2C /* PopularRepositoresViewController.swift */,
+				8E678BE8288EE40D00220F2C /* PopularRepositoriesView.swift */,
+				8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */,
+			);
+			path = PopularRepositories;
+			sourceTree = "<group>";
+		};
+		8E01029028B3D20F00F796D5 /* PullRequests */ = {
+			isa = PBXGroup;
+			children = (
+				8EB59D2528917BB10033A4E7 /* PullRequestsViewController.swift */,
+				8EB59D2728917BEA0033A4E7 /* PullRequestsView.swift */,
+				8EB59D2928917C040033A4E7 /* PullRequestsCell.swift */,
+			);
+			path = PullRequests;
+			sourceTree = "<group>";
+		};
+		8E01029128B3D23300F796D5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				8E595ADA28A2EDAC00B03421 /* SearchController.swift */,
+				8E595AD828A2ED8700B03421 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		8E595AE428A4306800B03421 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,40 +176,9 @@
 		8E678BE5288EDA7400220F2C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				8E678BEA288EE43000220F2C /* Cells */,
-				8E678BE7288EE3BC00220F2C /* Views */,
-				8E678BE6288EDA8000220F2C /* Controllers */,
+				8E01028E28B3D1D800F796D5 /* Scenes */,
 			);
 			path = Presentation;
-			sourceTree = "<group>";
-		};
-		8E678BE6288EDA8000220F2C /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				8E678BD2288ED95200220F2C /* PopularRepositoresViewController.swift */,
-				8EB59D2528917BB10033A4E7 /* PullRequestsViewController.swift */,
-				8E595ADA28A2EDAC00B03421 /* SearchController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		8E678BE7288EE3BC00220F2C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				8E678BE8288EE40D00220F2C /* PopularRepositoriesView.swift */,
-				8EB59D2728917BEA0033A4E7 /* PullRequestsView.swift */,
-				8E595AD828A2ED8700B03421 /* SearchView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		8E678BEA288EE43000220F2C /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */,
-				8EB59D2928917C040033A4E7 /* PullRequestsCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		8E678BED288EEA8000220F2C /* Data */ = {
