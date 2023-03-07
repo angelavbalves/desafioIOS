@@ -13,6 +13,16 @@ class SearchController: RPViewController {
     //  MARK: Views
     lazy var searchView = SearchView(didTapOnSearchButton: didTapOnSearchButton(_:))
 
+    //  MARK: Properties
+    private let viewModel: SearchViewModel
+
+    //  MARK: Init
+    init(viewModel: SearchViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
+
+    // MARK: - Life Cycle
     override func loadView() {
         view = searchView
     }
@@ -23,7 +33,6 @@ class SearchController: RPViewController {
 
     // MARK: Aux
     func didTapOnSearchButton(_ language: String) {
-        let controller = PopularRepositoresViewController(language: language)
-        navigationController?.pushViewController(controller, animated: true)
+        viewModel.searchForRepositories(of: language)
     }
 }
