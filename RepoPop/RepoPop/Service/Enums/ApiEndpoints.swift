@@ -13,10 +13,6 @@ enum ApiEndpoints {
 }
 
 extension ApiEndpoints: Endpoint {
-    var host: String {
-        return "api.github.com"
-    }
-
     var path: String {
         switch self {
             case .repository:
@@ -24,10 +20,6 @@ extension ApiEndpoints: Endpoint {
             case .pullRequest(let username, let repositoryTitle):
                 return "/repos/\(username)/\(repositoryTitle)/pulls"
         }
-    }
-
-    var method: String {
-        return "get"
     }
 
     var query: [URLQueryItem] {
