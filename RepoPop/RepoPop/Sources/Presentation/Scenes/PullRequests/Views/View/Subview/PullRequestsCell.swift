@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class PullRequestsCell: UITableViewCell {
 
@@ -139,7 +140,10 @@ class PullRequestsCell: UITableViewCell {
         guard let url = URL(string: pullRequest.user.avatar_url) else {
             return
         }
-        userImageView.downloadImage(from: url)
+        userImageView.kf.indicatorType = .activity
+        userImageView.kf.setImage(with: url,
+                                  options: [.onFailureImage(UIImage(named: "errorImage"))]
+        )
         dateUpdateLabel.text = pullRequest.updated_at
     }
 }
