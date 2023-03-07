@@ -18,14 +18,18 @@ class PopularRepositoriesView: RPView {
         }
     }
 
+    private let fetchRepositories: () -> Void
+    private let didTapOnRow: (_ repository: RepositoryResponseItem) -> Void
     private var isFiltering = false
     private var isLoadingNextPage = false
 
-    var delegate: PopularRepositoresViewControllerDelegate?
-
     // MARK: Init
-    init(delegate: PopularRepositoresViewControllerDelegate) {
-        self.delegate = delegate
+    init(
+        fetchRepositories: @escaping () -> Void,
+        didTapOnRow: @escaping (_ repository: RepositoryResponseItem) -> Void
+    ) {
+        self.fetchRepositories = fetchRepositories
+        self.didTapOnRow = didTapOnRow
         super.init()
         tableView.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
         tableView.estimatedRowHeight = 100
@@ -51,7 +55,7 @@ class PopularRepositoriesView: RPView {
     override func configureSubviews() {
         addSubview(tableView)
     }
-    
+
     override func configureConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
@@ -94,7 +98,7 @@ class PopularRepositoriesView: RPView {
             distanceFromBottom < height
         {
             isLoadingNextPage = true
-            delegate?.fetchRepositories()
+            fetchRepositories()
         }
     }
 }
@@ -127,6 +131,6 @@ extension PopularRepositoriesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let repository = filteredRepositories[indexPath.row]
-        delegate?.userDidTapOnTheRow(repository)
+        didTapOnRow(repository)
     }
 }
