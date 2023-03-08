@@ -28,6 +28,10 @@
 		8E628F2829B7C2EC004B0B80 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F2729B7C2EC004B0B80 /* String+Ext.swift */; };
 		8E628F2B29B7C678004B0B80 /* PullRequestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F2A29B7C678004B0B80 /* PullRequestsViewModel.swift */; };
 		8E628F2E29B7E04C004B0B80 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F2D29B7E04C004B0B80 /* SearchViewModel.swift */; };
+		8E628F3129B7FABD004B0B80 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3029B7FABD004B0B80 /* AppColors.swift */; };
+		8E628F3329B8D326004B0B80 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3229B8D325004B0B80 /* TextSize.swift */; };
+		8E628F3529B8D399004B0B80 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3429B8D399004B0B80 /* Fonts.swift */; };
+		8E628F3729B8D49C004B0B80 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3629B8D49C004B0B80 /* Spacing.swift */; };
 		8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BCE288ED95200220F2C /* AppDelegate.swift */; };
 		8E678BD1288ED95200220F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD0288ED95200220F2C /* SceneDelegate.swift */; };
 		8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD2288ED95200220F2C /* PopularRepositoresViewController.swift */; };
@@ -62,6 +66,10 @@
 		8E628F2729B7C2EC004B0B80 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		8E628F2A29B7C678004B0B80 /* PullRequestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsViewModel.swift; sourceTree = "<group>"; };
 		8E628F2D29B7E04C004B0B80 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		8E628F3029B7FABD004B0B80 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		8E628F3229B8D325004B0B80 /* TextSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSize.swift; sourceTree = "<group>"; };
+		8E628F3429B8D399004B0B80 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		8E628F3629B8D49C004B0B80 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		8E678BCB288ED95200220F2C /* RepoPop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepoPop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E678BCE288ED95200220F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E678BD0288ED95200220F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -286,6 +294,17 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		8E628F2F29B7F8F3004B0B80 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				8E628F3029B7FABD004B0B80 /* AppColors.swift */,
+				8E628F3229B8D325004B0B80 /* TextSize.swift */,
+				8E628F3429B8D399004B0B80 /* Fonts.swift */,
+				8E628F3629B8D49C004B0B80 /* Spacing.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		8E678BC2288ED95200220F2C = {
 			isa = PBXGroup;
 			children = (
@@ -366,6 +385,7 @@
 		8E678BF0288F210000220F2C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8E628F2F29B7F8F3004B0B80 /* Constants */,
 				8E628F2629B7C2DB004B0B80 /* Extensions */,
 				8EB59D3528983CA60033A4E7 /* Components */,
 			);
@@ -468,6 +488,7 @@
 				8E678BF2288F211600220F2C /* Repository.swift in Sources */,
 				8E628F2B29B7C678004B0B80 /* PullRequestsViewModel.swift in Sources */,
 				8EB4967028AD093C007FC771 /* RPView.swift in Sources */,
+				8E628F3129B7FABD004B0B80 /* AppColors.swift in Sources */,
 				8E595AE328A4306300B03421 /* ApiEndpoints.swift in Sources */,
 				8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */,
 				8E595AE828A560AF00B03421 /* RPErrorView.swift in Sources */,
@@ -480,11 +501,14 @@
 				8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */,
 				8E628F2029B7A772004B0B80 /* PopularRepositoriesViewModel.swift in Sources */,
 				8E628F0D29B78A3F004B0B80 /* RPClient.swift in Sources */,
+				8E628F3529B8D399004B0B80 /* Fonts.swift in Sources */,
+				8E628F3329B8D326004B0B80 /* TextSize.swift in Sources */,
 				8EB59D2C2891AFBD0033A4E7 /* PullRequest.swift in Sources */,
 				8E678BE9288EE40D00220F2C /* PopularRepositoriesView.swift in Sources */,
 				8E678BD1288ED95200220F2C /* SceneDelegate.swift in Sources */,
 				8E628F2E29B7E04C004B0B80 /* SearchViewModel.swift in Sources */,
 				8E595AD928A2ED8700B03421 /* SearchView.swift in Sources */,
+				8E628F3729B8D49C004B0B80 /* Spacing.swift in Sources */,
 				8E595AE128A4258400B03421 /* Endpoint.swift in Sources */,
 				8E595ADB28A2EDAC00B03421 /* SearchController.swift in Sources */,
 				8E595ADD28A424C400B03421 /* RepositoryErrorState.swift in Sources */,
