@@ -35,6 +35,7 @@
 		8E628F3B29B8FB66004B0B80 /* CascadeOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3A29B8FB66004B0B80 /* CascadeOperator.swift */; };
 		8E628F3F29B9289A004B0B80 /* RPShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3E29B92899004B0B80 /* RPShadowView.swift */; };
 		8E628F4129B93B68004B0B80 /* RPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F4029B93B68004B0B80 /* RPButton.swift */; };
+		8E628F4329BB9E5A004B0B80 /* RPDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F4229BB9E5A004B0B80 /* RPDetailsRow.swift */; };
 		8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BCE288ED95200220F2C /* AppDelegate.swift */; };
 		8E678BD1288ED95200220F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD0288ED95200220F2C /* SceneDelegate.swift */; };
 		8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD2288ED95200220F2C /* PopularRepositoresViewController.swift */; };
@@ -76,6 +77,7 @@
 		8E628F3A29B8FB66004B0B80 /* CascadeOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeOperator.swift; sourceTree = "<group>"; };
 		8E628F3E29B92899004B0B80 /* RPShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPShadowView.swift; sourceTree = "<group>"; };
 		8E628F4029B93B68004B0B80 /* RPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPButton.swift; sourceTree = "<group>"; };
+		8E628F4229BB9E5A004B0B80 /* RPDetailsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPDetailsRow.swift; sourceTree = "<group>"; };
 		8E678BCB288ED95200220F2C /* RepoPop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepoPop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E678BCE288ED95200220F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E678BD0288ED95200220F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				8E678BEB288EE44400220F2C /* PopularRepositoriesCell.swift */,
+				8E628F4229BB9E5A004B0B80 /* RPDetailsRow.swift */,
 			);
 			path = Subview;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				8EB59D3728983CBF0033A4E7 /* RPViewController.swift in Sources */,
 				8E628F1029B78CDA004B0B80 /* RPService.swift in Sources */,
 				8E3C5BE42898627300A35B70 /* RPEmptyView.swift in Sources */,
+				8E628F4329BB9E5A004B0B80 /* RPDetailsRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
