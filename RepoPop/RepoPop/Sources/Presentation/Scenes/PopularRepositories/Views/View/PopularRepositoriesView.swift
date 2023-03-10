@@ -31,9 +31,6 @@ class PopularRepositoriesView: RPView {
         self.fetchRepositories = fetchRepositories
         self.didTapOnRow = didTapOnRow
         super.init()
-        tableView.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
     }
 
     @available(*, unavailable)
@@ -42,14 +39,12 @@ class PopularRepositoriesView: RPView {
     }
 
     // MARK: Views
-    private lazy var tableView: UITableView = {
-        let tv = UITableView(frame: .zero)
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.delegate = self
-        tv.dataSource = self
-
-        return tv
-    }()
+    private lazy var tableView = UITableView() .. {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.separatorStyle = .none
+        $0.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
+    }
 
     // MARK: Aux
     override func configureSubviews() {
@@ -57,13 +52,7 @@ class PopularRepositoriesView: RPView {
     }
 
     override func configureConstraints() {
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-
-        ])
+        tableView.edgesToSuperview()
     }
 
     func reloadTableViewWith(popularRepositories: [RepositoryResponseItem]) {
