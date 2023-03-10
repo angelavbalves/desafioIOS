@@ -31,6 +31,11 @@ class SearchController: RPViewController {
         searchView.backgroundColor = AppColors.lightGray
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+
     // MARK: Aux
     func didTapOnSearchButton(_ language: String) {
         viewModel.searchForRepositories(of: language)
