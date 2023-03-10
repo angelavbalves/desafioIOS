@@ -16,9 +16,10 @@ class PopularRepositoriesViewModel {
     private let coordinator: AppCoordinator?
 
     // MARK: - Init
-    init(coordinator: AppCoordinator?,
-         service: RPService = .live())
-    {
+    init(
+        coordinator: AppCoordinator?,
+        service: RPService = .live()
+    ) {
         self.coordinator = coordinator
         self.service = service
     }
