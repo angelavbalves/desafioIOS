@@ -25,9 +25,6 @@ class SearchView: RPView {
         fatalError("init(coder:) has not been implemented")
     }
 
-
-    private let scrollView = UIScrollView()
-
     private let backgroundStackView = UIStackView() .. {
         $0.axis = .vertical
         $0.spacing = Spacing.cardSpace
@@ -56,7 +53,7 @@ class SearchView: RPView {
     private let textField = UITextField() .. {
         $0.clearButtonMode = .whileEditing
         $0.placeholder = "Search for a language"
-        $0.font = Fonts.textField
+        $0.font = Fonts.subtitleLarge
         $0.contentVerticalAlignment = .center
         $0.keyboardType = .alphabet
         $0.returnKeyType = .done
