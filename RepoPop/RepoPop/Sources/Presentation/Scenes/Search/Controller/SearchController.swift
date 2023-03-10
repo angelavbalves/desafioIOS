@@ -28,7 +28,7 @@ class SearchController: RPViewController {
     }
 
     override func viewDidLoad() {
-        searchView.backgroundColor = .white
+        searchView.backgroundColor = AppColors.lightGray
     }
 
     // MARK: Aux
