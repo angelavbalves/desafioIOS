@@ -32,6 +32,9 @@
 		8E628F3329B8D326004B0B80 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3229B8D325004B0B80 /* TextSize.swift */; };
 		8E628F3529B8D399004B0B80 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3429B8D399004B0B80 /* Fonts.swift */; };
 		8E628F3729B8D49C004B0B80 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3629B8D49C004B0B80 /* Spacing.swift */; };
+		8E628F3B29B8FB66004B0B80 /* CascadeOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3A29B8FB66004B0B80 /* CascadeOperator.swift */; };
+		8E628F3F29B9289A004B0B80 /* RPShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F3E29B92899004B0B80 /* RPShadowView.swift */; };
+		8E628F4129B93B68004B0B80 /* RPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E628F4029B93B68004B0B80 /* RPButton.swift */; };
 		8E678BCF288ED95200220F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BCE288ED95200220F2C /* AppDelegate.swift */; };
 		8E678BD1288ED95200220F2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD0288ED95200220F2C /* SceneDelegate.swift */; };
 		8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E678BD2288ED95200220F2C /* PopularRepositoresViewController.swift */; };
@@ -70,6 +73,9 @@
 		8E628F3229B8D325004B0B80 /* TextSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSize.swift; sourceTree = "<group>"; };
 		8E628F3429B8D399004B0B80 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		8E628F3629B8D49C004B0B80 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
+		8E628F3A29B8FB66004B0B80 /* CascadeOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeOperator.swift; sourceTree = "<group>"; };
+		8E628F3E29B92899004B0B80 /* RPShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPShadowView.swift; sourceTree = "<group>"; };
+		8E628F4029B93B68004B0B80 /* RPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPButton.swift; sourceTree = "<group>"; };
 		8E678BCB288ED95200220F2C /* RepoPop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepoPop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E678BCE288ED95200220F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E678BD0288ED95200220F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -305,6 +311,14 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		8E628F3829B8FB4B004B0B80 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				8E628F3A29B8FB66004B0B80 /* CascadeOperator.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		8E678BC2288ED95200220F2C = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +399,7 @@
 		8E678BF0288F210000220F2C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8E628F3829B8FB4B004B0B80 /* Tools */,
 				8E628F2F29B7F8F3004B0B80 /* Constants */,
 				8E628F2629B7C2DB004B0B80 /* Extensions */,
 				8EB59D3528983CA60033A4E7 /* Components */,
@@ -400,6 +415,8 @@
 				8EB59D3828983D260033A4E7 /* RPLoadingView.swift */,
 				8E595AE728A560AF00B03421 /* RPErrorView.swift */,
 				8EB4966F28AD093C007FC771 /* RPView.swift */,
+				8E628F3E29B92899004B0B80 /* RPShadowView.swift */,
+				8E628F4029B93B68004B0B80 /* RPButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -485,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E628F3B29B8FB66004B0B80 /* CascadeOperator.swift in Sources */,
 				8E678BF2288F211600220F2C /* Repository.swift in Sources */,
 				8E628F2B29B7C678004B0B80 /* PullRequestsViewModel.swift in Sources */,
 				8EB4967028AD093C007FC771 /* RPView.swift in Sources */,
@@ -509,6 +527,8 @@
 				8E628F2E29B7E04C004B0B80 /* SearchViewModel.swift in Sources */,
 				8E595AD928A2ED8700B03421 /* SearchView.swift in Sources */,
 				8E628F3729B8D49C004B0B80 /* Spacing.swift in Sources */,
+				8E628F4129B93B68004B0B80 /* RPButton.swift in Sources */,
+				8E628F3F29B9289A004B0B80 /* RPShadowView.swift in Sources */,
 				8E595AE128A4258400B03421 /* Endpoint.swift in Sources */,
 				8E595ADB28A2EDAC00B03421 /* SearchController.swift in Sources */,
 				8E595ADD28A424C400B03421 /* RepositoryErrorState.swift in Sources */,
