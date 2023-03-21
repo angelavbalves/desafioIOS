@@ -21,11 +21,12 @@ extension RPService {
                 url: url,
                 endpoint: endpoint
             )
-        } pullRequests: { url, endpoint in
-            apiClient.makeRequest(
-                url: url,
-                endpoint: endpoint
-            )
         }
+            pullRequests: { url, endpoint in
+                apiClient.makeRequest(
+                    url: url,
+                    endpoint: endpoint
+                )
+            }
     }
 }
