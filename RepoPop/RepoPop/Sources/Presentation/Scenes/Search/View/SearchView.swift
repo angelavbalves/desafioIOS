@@ -12,9 +12,14 @@ import UIKit
 class SearchView: RPView {
 
     var didTapOnSearchButton: (_ language: String) -> Void
+    var showAlert: () -> Void
     private lazy var heightItem: CGFloat = self.frame.height * 0.4
 
-    init(didTapOnSearchButton: @escaping (_ language: String) -> Void) {
+    init(
+        didTapOnSearchButton: @escaping (_ language: String) -> Void,
+        showAlert: @escaping () -> Void
+    ) {
+        self.showAlert = showAlert
         self.didTapOnSearchButton = didTapOnSearchButton
         super.init()
         textField.delegate = self
@@ -66,9 +71,8 @@ class SearchView: RPView {
         $0.layer.shadowOpacity = 0.4
         $0.layer.shadowRadius = 20.0
         $0.height(60)
-
     }
-    
+
     private lazy var searchButton = RPButton() .. {
         $0.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
     }
@@ -91,7 +95,6 @@ class SearchView: RPView {
         searchStackView.center(in: card)
         searchButton.width(to: card, multiplier: 0.4)
         textField.width(to: card, multiplier: 0.8)
-
     }
 
     @objc func searchButtonTapped() {
@@ -102,9 +105,7 @@ class SearchView: RPView {
                 textField.text = ""
                 textField.layer.borderWidth = 0
             } else {
-                textField.layer.borderColor = UIColor.systemRed.cgColor
-                textField.layer.borderWidth = 2
-                textField.layer.cornerRadius = 6
+                showAlert()
             }
         }
     }
