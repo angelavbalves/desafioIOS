@@ -8,9 +8,10 @@
 import Foundation
 
 enum ErrorState: Swift.Error {
-    case generic
-    case repositoryNotFound
-    case noConnection
-    case badRequest
-    case invalidData
+    case generic(_ description: String)
+    case noConnection(_ description: String)
+    case badRequest(_ description: String)
+    case invalidData(_ description: String)
+    case redirectError(_ description: String)
+    case unrecognizedError(_ description: String)
 }
