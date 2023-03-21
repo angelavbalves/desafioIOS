@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E3C5BE42898627300A35B70 /* RPEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C5BE32898627200A35B70 /* RPEmptyView.swift */; };
+		8E3C5BE42898627300A35B70 /* RPWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C5BE32898627200A35B70 /* RPWarningView.swift */; };
 		8E595AD928A2ED8700B03421 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E595AD828A2ED8700B03421 /* SearchView.swift */; };
 		8E595ADB28A2EDAC00B03421 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E595ADA28A2EDAC00B03421 /* SearchController.swift */; };
 		8E595ADD28A424C400B03421 /* RepositoryErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E595ADC28A424C400B03421 /* RepositoryErrorState.swift */; };
 		8E595AE128A4258400B03421 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E595AE028A4258400B03421 /* Endpoint.swift */; };
 		8E595AE328A4306300B03421 /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E595AE228A4306300B03421 /* ApiEndpoints.swift */; };
-		8E595AE828A560AF00B03421 /* RPErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E595AE728A560AF00B03421 /* RPErrorView.swift */; };
 		8E628EFE29B78934004B0B80 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8E628EFD29B78934004B0B80 /* RxCocoa */; };
 		8E628F0029B78934004B0B80 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 8E628EFF29B78934004B0B80 /* RxRelay */; };
 		8E628F0229B78934004B0B80 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8E628F0129B78934004B0B80 /* RxSwift */; };
@@ -54,13 +53,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8E3C5BE32898627200A35B70 /* RPEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPEmptyView.swift; sourceTree = "<group>"; };
+		8E3C5BE32898627200A35B70 /* RPWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPWarningView.swift; sourceTree = "<group>"; };
 		8E595AD828A2ED8700B03421 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8E595ADA28A2EDAC00B03421 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		8E595ADC28A424C400B03421 /* RepositoryErrorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryErrorState.swift; sourceTree = "<group>"; };
 		8E595AE028A4258400B03421 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		8E595AE228A4306300B03421 /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
-		8E595AE728A560AF00B03421 /* RPErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPErrorView.swift; sourceTree = "<group>"; };
 		8E628F0A29B789AA004B0B80 /* ApiClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientProtocol.swift; sourceTree = "<group>"; };
 		8E628F0C29B78A3F004B0B80 /* RPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPClient.swift; sourceTree = "<group>"; };
 		8E628F0F29B78CDA004B0B80 /* RPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPService.swift; sourceTree = "<group>"; };
@@ -414,9 +412,8 @@
 			isa = PBXGroup;
 			children = (
 				8EB59D3628983CBF0033A4E7 /* RPViewController.swift */,
-				8E3C5BE32898627200A35B70 /* RPEmptyView.swift */,
+				8E3C5BE32898627200A35B70 /* RPWarningView.swift */,
 				8EB59D3828983D260033A4E7 /* RPLoadingView.swift */,
-				8E595AE728A560AF00B03421 /* RPErrorView.swift */,
 				8EB4966F28AD093C007FC771 /* RPView.swift */,
 				8E628F3E29B92899004B0B80 /* RPShadowView.swift */,
 				8E628F4029B93B68004B0B80 /* RPButton.swift */,
@@ -512,7 +509,6 @@
 				8E628F3129B7FABD004B0B80 /* AppColors.swift in Sources */,
 				8E595AE328A4306300B03421 /* ApiEndpoints.swift in Sources */,
 				8E678BD3288ED95200220F2C /* PopularRepositoresViewController.swift in Sources */,
-				8E595AE828A560AF00B03421 /* RPErrorView.swift in Sources */,
 				8E628F0B29B789AA004B0B80 /* ApiClientProtocol.swift in Sources */,
 				8E628F2529B7B2BF004B0B80 /* AppCoordinator.swift in Sources */,
 				8EB59D2A28917C040033A4E7 /* PullRequestsCell.swift in Sources */,
@@ -540,7 +536,7 @@
 				8EB59D2628917BB10033A4E7 /* PullRequestsViewController.swift in Sources */,
 				8EB59D3728983CBF0033A4E7 /* RPViewController.swift in Sources */,
 				8E628F1029B78CDA004B0B80 /* RPService.swift in Sources */,
-				8E3C5BE42898627300A35B70 /* RPEmptyView.swift in Sources */,
+				8E3C5BE42898627300A35B70 /* RPWarningView.swift in Sources */,
 				8E628F4329BB9E5A004B0B80 /* RPDetailsRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
