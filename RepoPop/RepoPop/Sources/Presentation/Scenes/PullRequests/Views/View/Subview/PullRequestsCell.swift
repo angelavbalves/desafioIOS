@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import TinyConstraints
 
 class PullRequestsCell: UITableViewCell {
 
@@ -27,115 +28,76 @@ class PullRequestsCell: UITableViewCell {
     }
 
     // MARK: Views
-    private var totalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 12
+    private let cardRow = RPShadowView()
 
-        return stackView
-    }()
+    private let backgroundStackView = UIStackView() .. {
+        $0.axis = .vertical
+        $0.spacing = Spacing.medium
+    }
 
-    private var titlePullRequestLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .black
-        label.textAlignment = .justified
+    private let title = UILabel() .. {
+        $0.numberOfLines = 0
+        $0.font = UIFont.systemFont(ofSize: 18)
+        $0.textColor = .black
+        $0.textAlignment = .justified
+    }
 
-        return label
-    }()
+    private let descriptionLabel = UILabel() .. {
+        $0.numberOfLines = 4
+        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.textColor = .black
+        $0.textAlignment = .justified
+    }
 
-    private var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 4
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .black
-        label.textAlignment = .justified
+    private let userStackView = UIStackView() .. {
+        $0.axis = .horizontal
+        $0.spacing = Spacing.extraSmall
+        $0.alignment = .center
+    }
 
-        return label
-    }()
+    private let infoStackView = UIStackView() .. {
+        $0.axis = .vertical
+    }
 
-    private var userStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 4
-        stackView.alignment = .center
+    private let userImageView = UIImageView() .. {
+        $0.layer.cornerRadius = 30
+        $0.clipsToBounds = true
+        $0.width(60)
+        $0.height(60)
+        $0.contentMode = .scaleAspectFill
+    }
 
-        return stackView
-    }()
+    private let username = UILabel() .. {
+        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.textColor = .systemBlue
+    }
 
-    private var DataStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-
-        return stackView
-    }()
-
-    private var userImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 30
-        imageView.clipsToBounds = true
-
-        return imageView
-    }()
-
-    private var usernameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .systemBlue
-        label.text = "username"
-
-        return label
-    }()
-
-    private var dateUpdateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.textColor = .systemGray
-        label.text = "Date update"
-
-        return label
-    }()
+    private let dateUpdateLabel = UILabel() .. {
+        $0.font = Fonts.text
+        $0.textColor = .systemGray
+    }
 
     // MARK: Aux
     func setupSubViews() {
-        contentView.addSubview(totalStackView)
-        totalStackView.addArrangedSubview(titlePullRequestLabel)
-        totalStackView.addArrangedSubview(descriptionLabel)
-        totalStackView.addArrangedSubview(userStackView)
+        addSubview(cardRow)
+        cardRow.addSubview(backgroundStackView)
+        backgroundStackView.addArrangedSubview(title)
+        backgroundStackView.addArrangedSubview(descriptionLabel)
+        backgroundStackView.addArrangedSubview(userStackView)
         userStackView.addArrangedSubview(userImageView)
-        userStackView.addArrangedSubview(DataStackView)
-        DataStackView.addArrangedSubview(usernameLabel)
-        DataStackView.addArrangedSubview(dateUpdateLabel)
-        DataStackView.addArrangedSubview(UIView())
+        userStackView.addArrangedSubview(infoStackView)
+        infoStackView.addArrangedSubview(username)
+        infoStackView.addArrangedSubview(dateUpdateLabel)
     }
 
     func buildConstraints() {
-        NSLayoutConstraint.activate([
-            totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            totalStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -24),
-
-            userStackView.bottomAnchor.constraint(equalTo: totalStackView.bottomAnchor),
-
-            userImageView.widthAnchor.constraint(equalToConstant: 60),
-            userImageView.heightAnchor.constraint(equalToConstant: 60),
-
-        ])
+        cardRow.edgesToSuperview(insets: .uniform(Spacing.medium), usingSafeArea: true)
+        backgroundStackView.edges(to: cardRow, insets: .uniform(Spacing.medium))
     }
 
     func setup(for pullRequest: PullRequestResponseItem) {
-        titlePullRequestLabel.text = pullRequest.title
-        usernameLabel.text = pullRequest.user.login
+        title.text = pullRequest.title
+        username.text = pullRequest.user.login
         descriptionLabel.text = pullRequest.body
         guard let url = URL(string: pullRequest.user.avatar_url) else {
             return

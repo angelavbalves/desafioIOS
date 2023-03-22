@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import TinyConstraints
 import UIKit
 
 class PullRequestsView: RPView {
@@ -14,27 +15,28 @@ class PullRequestsView: RPView {
     private var pullRequests: [PullRequestResponseItem] = []
     private let openURL: (_ url: URL) -> Void
     private let presentAlert: (_ alertController: UIAlertController) -> Void
+    private var isLoadingMorePullRequests: Bool = false
+    private let fetchPullRequests: () -> Void
 
     // MARK: Views
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.tableFooterView = RPView()
-
-        return tableView
-    }()
+    private lazy var tableView = UITableView() .. {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.tableFooterView = RPView()
+        $0.separatorStyle = .none
+        $0.register(PullRequestsCell.self, forCellReuseIdentifier: PullRequestsCell.identifer)
+    }
 
     // MARK: Init
     init(
         openURL: @escaping (_ url: URL) -> Void,
-        presentAlert: @escaping (_ alertController: UIAlertController) -> Void
+        presentAlert: @escaping (_ alertController: UIAlertController) -> Void,
+        fetchPullRequests: @escaping () -> Void
     ) {
         self.openURL = openURL
         self.presentAlert = presentAlert
+        self.fetchPullRequests = fetchPullRequests
         super.init()
-        tableView.register(PullRequestsCell.self, forCellReuseIdentifier: PullRequestsCell.identifer)
     }
 
     override func configureSubviews() {
@@ -42,10 +44,7 @@ class PullRequestsView: RPView {
     }
 
     override func configureConstraints() {
-        NSLayoutConstraint.activate([
-            tableView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor),
-            tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor)
-        ])
+        tableView.edgesToSuperview(usingSafeArea: true)
     }
 
     // MARK: Aux
