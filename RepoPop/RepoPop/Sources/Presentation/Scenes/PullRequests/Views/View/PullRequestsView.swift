@@ -89,5 +89,17 @@ extension PullRequestsView: UITableViewDataSource {
             return
         }
         openURL(pullHtmlUrl)
+extension PullRequestsView: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let lastIndex = indexPaths.last?.row ?? 0
+        let limit = pullRequests.endIndex - 10
+
+        if
+            lastIndex >= limit,
+            !isLoadingMorePullRequests
+        {
+            isLoadingMorePullRequests = true
+            fetchPullRequests()
+        }
     }
 }
