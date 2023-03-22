@@ -12,7 +12,11 @@ import UIKit
 class PullRequestsViewController: RPViewController {
 
     // MARK: Properties
-    lazy var pullRequestsView = PullRequestsView(openURL: openURL(_:), presentAlert: presentAlert(_:))
+    lazy var pullRequestsView = PullRequestsView(
+        openURL: openURL(_:),
+        presentAlert: presentAlert(_:),
+        fetchPullRequests: fetchPullRequests
+    )
     private let disposeBag = DisposeBag()
     private let viewModel: PullRequestsViewModel
 
@@ -30,10 +34,6 @@ class PullRequestsViewController: RPViewController {
     // MARK: Life Cycle
     override func loadView() {
         view = pullRequestsView
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,18 +60,29 @@ class PullRequestsViewController: RPViewController {
                            DispatchQueue.main.async {
                                self?.warningView.show(DisplayType.error(error))
                            }
-                       }
-                    )
+                       })
             .disposed(by: disposeBag)
     }
 
     func openURL(_ url: URL) {
-        UIApplication.shared.open(url)
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else {
+            let alert = UIAlertController(
+                title: "Something went wrong",
+                message: "We couldn't open the browser with the URL provided",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel)
+            )
+            presentAlert(alert)
+        }
     }
 
     func presentAlert(_ alertController: UIAlertController) {
         present(alertController, animated: true)
     }
+
     func setCloseButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close,

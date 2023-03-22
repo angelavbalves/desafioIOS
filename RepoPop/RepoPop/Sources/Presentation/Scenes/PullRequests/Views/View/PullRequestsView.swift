@@ -82,13 +82,24 @@ extension PullRequestsView: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let pullSelect = pullRequests[indexPath.row]
-        guard let pullHtmlUrl = URL(string: pullSelect.html_url ?? "") else {
-            let alert = UIAlertController(title: "Error", message: "There isn't url to open in browser", preferredStyle: .alert)
+        let pullRequestSelected = pullRequests[indexPath.row]
+        guard
+            let urlString = pullRequestSelected.html_url,
+            let url = URL(string: urlString)
+        else {
+            let alert = UIAlertController(
+                title: "Invalid URL",
+                message: "The URL you entered is not valid. Please check and try again.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
             presentAlert(alert)
             return
         }
-        openURL(pullHtmlUrl)
+        openURL(url)
+    }
+}
+
 extension PullRequestsView: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         let lastIndex = indexPaths.last?.row ?? 0
