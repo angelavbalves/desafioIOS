@@ -72,4 +72,29 @@ class PullRequestsViewController: RPViewController {
     func presentAlert(_ alertController: UIAlertController) {
         present(alertController, animated: true)
     }
+    func setCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(closeButtonDidTap)
+        )
+        configureNav()
+    }
+
+    @objc func closeButtonDidTap() {
+        dismiss(animated: true)
+    }
+
+    private func configureNav() {
+        navigationController?.navigationBar.isTranslucent = false
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = AppColors.lightGreen
+
+        navigationController?.navigationBar.tintColor = .black
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
 }
