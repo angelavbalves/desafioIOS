@@ -18,17 +18,17 @@ class PopularRepositoriesView: RPView {
         }
     }
 
-    private let fetchRepositories: () -> Void
+    private let fetchAllRepositories: (_ isPagging: Bool) -> Void
     private let didTapOnRow: (_ repository: RepositoryResponseItem) -> Void
     private var isFiltering = false
-    private var isLoadingNextPage = false
+    private var isLoadingMoreRepositories = false
 
     // MARK: Init
     init(
-        fetchRepositories: @escaping () -> Void,
+        fetchAllRepositories: @escaping (_ isPagging: Bool) -> Void,
         didTapOnRow: @escaping (_ repository: RepositoryResponseItem) -> Void
     ) {
-        self.fetchRepositories = fetchRepositories
+        self.fetchAllRepositories = fetchAllRepositories
         self.didTapOnRow = didTapOnRow
         super.init()
     }
@@ -44,6 +44,7 @@ class PopularRepositoriesView: RPView {
         $0.dataSource = self
         $0.separatorStyle = .none
         $0.register(PopularRepositoriesCell.self, forCellReuseIdentifier: PopularRepositoriesCell.identifer)
+        $0.prefetchDataSource = self
     }
 
     // MARK: Aux
@@ -52,14 +53,14 @@ class PopularRepositoriesView: RPView {
     }
 
     override func configureConstraints() {
-        tableView.edgesToSuperview()
+        tableView.edgesToSuperview(usingSafeArea: true)
     }
 
     func reloadTableViewWith(popularRepositories: [RepositoryResponseItem]) {
         self.popularRepositories = popularRepositories
         filteredRepositories += popularRepositories
         tableView.reloadData()
-        isLoadingNextPage = false
+        isLoadingMoreRepositories = false
     }
 
     func updateViewWithSearchResults(_ results: [RepositoryResponseItem]) {
@@ -72,23 +73,6 @@ class PopularRepositoriesView: RPView {
         filteredRepositories = popularRepositories
         isFiltering = false
         tableView.reloadData()
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.size.height
-        let distanceFromBottom = contentHeight - offsetY
-
-        if
-            !isFiltering,
-            !isLoadingNextPage,
-            contentHeight > height,
-            distanceFromBottom < height
-        {
-            isLoadingNextPage = true
-            fetchRepositories()
-        }
     }
 }
 
@@ -121,5 +105,20 @@ extension PopularRepositoriesView: UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let repository = filteredRepositories[indexPath.row]
         didTapOnRow(repository)
+    }
+}
+
+extension PopularRepositoriesView: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let lastIndex = indexPaths.last?.row ?? 0
+        let limit = filteredRepositories.endIndex - 10
+
+        if
+            lastIndex >= limit,
+            !isLoadingMoreRepositories
+        {
+            isLoadingMoreRepositories = true
+            fetchAllRepositories(isLoadingMoreRepositories)
+        }
     }
 }
