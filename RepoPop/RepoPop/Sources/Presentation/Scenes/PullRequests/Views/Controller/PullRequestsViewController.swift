@@ -15,7 +15,7 @@ class PullRequestsViewController: RPViewController {
     lazy var pullRequestsView = PullRequestsView(
         openURL: openURL(_:),
         presentAlert: presentAlert(_:),
-        fetchPullRequests: fetchPullRequests
+        fetchPullRequests: fetchPullRequests(_:)
     )
     private let disposeBag = DisposeBag()
     private let viewModel: PullRequestsViewModel
@@ -37,14 +37,18 @@ class PullRequestsViewController: RPViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        fetchPullRequests()
+        fetchPullRequests(false)
     }
 
     // MARK: Aux
-    func fetchPullRequests() {
+    func fetchPullRequests(_ isPaging: Bool) {
         loadingView.show()
         viewModel
-            .fetchPullRequests(viewModel.repository.owner.login, viewModel.repository.name)
+            .fetchPullRequests(
+                isPaging,
+                viewModel.repository.owner.login,
+                viewModel.repository.name
+            )
             .subscribe(onNext: { [weak self] response in
                            DispatchQueue.main.async {
                                if response.isEmpty {
@@ -73,8 +77,7 @@ class PullRequestsViewController: RPViewController {
                 message: "We couldn't open the browser with the URL provided",
                 preferredStyle: .alert
             )
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel)
-            )
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
             presentAlert(alert)
         }
     }
