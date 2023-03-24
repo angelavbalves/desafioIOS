@@ -16,7 +16,7 @@ struct RepositoryResponse: Codable {
 }
 
 // MARK: - RepositoryResponseItem
-struct RepositoryResponseItem: Codable {
+struct RepositoryResponseItem: Codable, Equatable {
     let id: Int
     let name, fullName: String
     let owner: OwnerResponse
@@ -27,7 +27,7 @@ struct RepositoryResponseItem: Codable {
     let updatedAt: String
     let stargazersCount, forks: Int
 
-    struct OwnerResponse: Codable {
+    struct OwnerResponse: Codable, Equatable {
         let login: String
         let avatarURL: String
 
