@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TinyConstraints
 
 class RPLoadingView: RPView {
 
@@ -26,11 +27,7 @@ class RPLoadingView: RPView {
     }
 
     override func configureConstraints() {
-        activeIndicator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            activeIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-            activeIndicator.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
+        activeIndicator.centerInSuperview()
     }
 
     func show() {
