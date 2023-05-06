@@ -14,6 +14,7 @@ class PullRequestsViewModel {
     private let service: RPService
     private let coordinator: AppCoordinator?
     let repository: RepositoryResponseItem
+    private var currentPage = 1
 
     // MARK: - Init
     init(
@@ -26,14 +27,19 @@ class PullRequestsViewModel {
         self.service = service
     }
 
-    func fetchPullRequests(_ username: String, _ title: String) -> Observable<[PullRequestResponseItem]> {
-        service
-            .pullRequests(
+    func fetchPullRequests(_ isPaging: Bool, _ username: String, _ title: String) -> Observable<[PullRequestResponseItem]> {
+        if !isPaging { currentPage = 1 }
+        let pullRequests = service
+            .getPullRequests(
                 "https://api.github.com",
                 ApiEndpoints
                     .pullRequest(
                         username: username,
-                        repositoryTitle: title)
+                        repositoryTitle: title,
+                        page: currentPage
+                    )
             )
+        currentPage += 1
+        return pullRequests
     }
 }

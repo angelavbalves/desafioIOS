@@ -12,9 +12,13 @@ class PopularRepositoresViewController: RPViewController {
 
     // MARK: Properties
     private lazy var popularRepositoriesView = PopularRepositoriesView(
-        fetchRepositories: fetchRepositories,
-        didTapOnRow: userDidTapOnTheRow(_:)
+        fetchAllRepositories: { [weak self] in
+            self?.fetchRepositories($0)
+        }, didTapOnRow: { [weak self] in
+            self?.userDidTapOnTheRow($0)
+        }
     )
+
     private let viewModel: PopularRepositoriesViewModel
     private var currentPage = 1
     private var language: String
@@ -39,11 +43,11 @@ class PopularRepositoresViewController: RPViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNav()
+        fetchRepositories(false)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchRepositories()
         navigationController?.navigationBar.isHidden = false
     }
 
@@ -89,10 +93,10 @@ class PopularRepositoresViewController: RPViewController {
         navigationItem.titleView = shouldShow ? searchBar : nil
     }
 
-    func fetchRepositories() {
+    func fetchRepositories(_ isPaging: Bool) {
         loadingView.show()
         viewModel
-            .fetchRepositories(language, currentPage)
+            .fetchRepositories(isPaging, language)
             .subscribe(onNext: { [weak self] repositoriesReponse in
                            let repositories = repositoriesReponse.items
                            DispatchQueue.main.async {
@@ -158,6 +162,7 @@ extension PopularRepositoresViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_: UISearchBar) {
         clearFilter()
         searchBar.text = ""
+        warningView.hide()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

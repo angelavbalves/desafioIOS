@@ -16,7 +16,7 @@ class PullRequestsView: RPView {
     private let openURL: (_ url: URL) -> Void
     private let presentAlert: (_ alertController: UIAlertController) -> Void
     private var isLoadingMorePullRequests: Bool = false
-    private let fetchPullRequests: () -> Void
+    private let fetchPullRequests: (_ isPaging: Bool) -> Void
 
     // MARK: Views
     private lazy var tableView = UITableView() .. {
@@ -25,13 +25,14 @@ class PullRequestsView: RPView {
         $0.tableFooterView = RPView()
         $0.separatorStyle = .none
         $0.register(PullRequestsCell.self, forCellReuseIdentifier: PullRequestsCell.identifer)
+        $0.prefetchDataSource = self
     }
 
     // MARK: Init
     init(
         openURL: @escaping (_ url: URL) -> Void,
         presentAlert: @escaping (_ alertController: UIAlertController) -> Void,
-        fetchPullRequests: @escaping () -> Void
+        fetchPullRequests: @escaping (_ isPaging: Bool) -> Void
     ) {
         self.openURL = openURL
         self.presentAlert = presentAlert
@@ -109,7 +110,7 @@ extension PullRequestsView: UITableViewDataSourcePrefetching {
             !isLoadingMorePullRequests
         {
             isLoadingMorePullRequests = true
-            fetchPullRequests()
+            fetchPullRequests(isLoadingMorePullRequests)
         }
     }
 }

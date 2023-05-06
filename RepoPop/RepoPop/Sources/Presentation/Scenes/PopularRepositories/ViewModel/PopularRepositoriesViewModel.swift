@@ -14,6 +14,8 @@ class PopularRepositoriesViewModel {
     // MARK: - Properties
     private let service: RPService
     private let coordinator: AppCoordinator?
+    private var currentPagePopularRepositories = 1
+    private var currentPageFilteredRepositories = 1
 
     // MARK: - Init
     init(
@@ -24,16 +26,19 @@ class PopularRepositoriesViewModel {
         self.service = service
     }
 
-    func fetchRepositories(_ language: String, _ page: Int) -> Observable<RepositoryResponse> {
-        service
-            .repositories(
+    func fetchRepositories(_ isPaging: Bool, _ language: String) -> Observable<RepositoryResponse> {
+        if !isPaging { currentPagePopularRepositories = 1 }
+        let repositories = service
+            .getRepositories(
                 "https://api.github.com",
                 ApiEndpoints
                     .repository(
                         language: language,
-                        page: page
+                        page: currentPagePopularRepositories
                     )
             )
+        currentPagePopularRepositories += 1
+        return repositories
     }
 
     func showPullRequestsList(_ repository: RepositoryResponseItem) {

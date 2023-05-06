@@ -10,8 +10,8 @@ import RxSwift
 import UIKit
 
 struct RPService {
-    var repositories: (_ url: String, _ endpoint: Endpoint) -> Observable<RepositoryResponse>
-    var pullRequests: (_ url: String, _ endpoint: Endpoint) -> Observable<[PullRequestResponseItem]>
+    var getRepositories: (_ url: String, _ endpoint: Endpoint) -> Observable<RepositoryResponse>
+    var getPullRequests: (_ url: String, _ endpoint: Endpoint) -> Observable<[PullRequestResponseItem]>
 }
 
 extension RPService {
@@ -22,7 +22,7 @@ extension RPService {
                 endpoint: endpoint
             )
         }
-            pullRequests: { url, endpoint in
+            getPullRequests: { url, endpoint in
                 apiClient.makeRequest(
                     url: url,
                     endpoint: endpoint
