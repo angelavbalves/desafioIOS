@@ -68,7 +68,6 @@ class PopularRepositoriesCell: UITableViewCell {
     }
 
     private lazy var userImageView = UIImageView() .. {
-        $0.backgroundColor = .red
         $0.clipsToBounds = true
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFill

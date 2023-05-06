@@ -23,19 +23,32 @@ class RPClient: ApiClientProtocol {
             let urlComponent = components?.url
             if let url = urlComponent {
                 let request = URLRequest(url: url)
-                let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
                     guard let data = data else {
-                        observer.onError(ErrorState.invalidData)
+                        observer.onError(ErrorState.invalidData("Invalid Data"))
                         observer.onCompleted()
                         return
                     }
-                    do {
-                        let model = try JSONDecoder().decode(T.self, from: data)
-                        observer.onNext(model)
-                    } catch {
-                        observer.onError(error)
+                    if let response = response as? HTTPURLResponse {
+                        switch response.statusCode {
+                            case 200...299:
+                                do {
+                                    let model = try JSONDecoder().decode(T.self, from: data)
+                                    observer.onNext(model)
+                                } catch {
+                                    observer.onError(ErrorState.generic("Decoding Error"))
+                                }
+                            case 300...399:
+                                observer.onError(ErrorState.generic("Redirect Error"))
+                            case 400...499:
+                                observer.onError(ErrorState.generic("Bad Request"))
+                            case 500...599:
+                                observer.onError(ErrorState.generic("Internal Server Error"))
+                            default:
+                                observer.onError(ErrorState.unrecognizedError("Unrecognized Error"))
+                        }
+                        observer.onCompleted()
                     }
-                    observer.onCompleted()
                 }
                 task.resume()
             }

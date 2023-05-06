@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TinyConstraints
 
 class RPViewController: UIViewController {
 
@@ -22,38 +23,19 @@ class RPViewController: UIViewController {
 
     // MARK: Properties
     let loadingView = RPLoadingView()
-    let emptyView = RPEmptyView()
-    let errorView = RPErrorView()
+    let warningView = RPWarningView()
 
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(loadingView)
-        view.addSubview(emptyView)
-        view.addSubview(errorView)
+        view.addSubview(warningView)
         setupConstraintsView()
     }
 
     // MARK: Aux
     func setupConstraintsView() {
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        emptyView.translatesAutoresizingMaskIntoConstraints = false
-        errorView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            loadingView.topAnchor.constraint(equalTo: view.topAnchor),
-            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            emptyView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            errorView.topAnchor.constraint(equalTo: view.topAnchor),
-            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
+        loadingView.edgesToSuperview(usingSafeArea: true)
+        warningView.edgesToSuperview(usingSafeArea: true)
     }
 }

@@ -5,8 +5,8 @@
 //  Created by Angela Alves on 25/07/22.
 //
 
-import UIKit
 import RxSwift
+import UIKit
 
 class PopularRepositoresViewController: RPViewController {
 
@@ -94,16 +94,26 @@ class PopularRepositoresViewController: RPViewController {
         viewModel
             .fetchRepositories(language, currentPage)
             .subscribe(onNext: { [weak self] repositoriesReponse in
-                let repositories = repositoriesReponse.items
-                DispatchQueue.main.async {
-                    self?
-                        .popularRepositoriesView
-                        .reloadTableViewWith(
-                            popularRepositories: repositories
-                        )
-                    self?.loadingView.hide()
-                }
-            })
+                           let repositories = repositoriesReponse.items
+                           DispatchQueue.main.async {
+                               if repositories.isEmpty {
+                                   self?.warningView.show(DisplayType.empty("No repositories found"))
+                               } else {
+                                   self?
+                                       .popularRepositoriesView
+                                       .reloadTableViewWith(
+                                           popularRepositories: repositories
+                                       )
+                                   self?.loadingView.hide()
+                               }
+                           }
+                       },
+                       onError: { [weak self] error in
+                           DispatchQueue.main.async {
+                               self?.warningView.show(DisplayType.error(error))
+                           }
+                       }
+                    )
             .disposed(by: disposeBag)
     }
 
@@ -126,6 +136,11 @@ class PopularRepositoresViewController: RPViewController {
                 repository.name.lowercased().contains(text)
             }
             popularRepositoriesView.updateViewWithSearchResults(filteredRepositories)
+            if filteredRepositories.isEmpty {
+                warningView.show(DisplayType.empty("No repositories found"))
+            } else {
+                warningView.hide()
+            }
         }
     }
 }
@@ -142,6 +157,7 @@ extension PopularRepositoresViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_: UISearchBar) {
         clearFilter()
+        searchBar.text = ""
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

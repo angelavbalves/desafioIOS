@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import RxSwift
+import UIKit
 
 class PullRequestsViewController: RPViewController {
 
@@ -46,13 +46,22 @@ class PullRequestsViewController: RPViewController {
         viewModel
             .fetchPullRequests(viewModel.repository.owner.login, viewModel.repository.name)
             .subscribe(onNext: { [weak self] response in
-                DispatchQueue.main.async {
-                    self?
-                        .pullRequestsView
-                        .reloadTableView(with: response)
-                    self?.loadingView.hide()
-                }
-            })
+                           DispatchQueue.main.async {
+                               if response.isEmpty {
+                                   self?.warningView.show(DisplayType.empty("No pull requests found"))
+                               }
+                               self?
+                                   .pullRequestsView
+                                   .reloadTableView(with: response)
+                               self?.loadingView.hide()
+                           }
+                       },
+                       onError: { [weak self] error in
+                           DispatchQueue.main.async {
+                               self?.warningView.show(DisplayType.error(error))
+                           }
+                       }
+                    )
             .disposed(by: disposeBag)
     }
 
