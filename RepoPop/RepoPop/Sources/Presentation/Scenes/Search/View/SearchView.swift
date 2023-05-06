@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import TinyConstraints
 import UIKit
 
 class SearchView: RPView {
 
     var didTapOnSearchButton: (_ language: String) -> Void
+    private lazy var heightItem: CGFloat = self.frame.height * 0.4
 
     init(didTapOnSearchButton: @escaping (_ language: String) -> Void) {
         self.didTapOnSearchButton = didTapOnSearchButton
@@ -23,73 +25,76 @@ class SearchView: RPView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var totalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 12
 
-        return stackView
-    }()
+    private let scrollView = UIScrollView()
 
-    private var titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.text = "Choose a language"
+    private let backgroundStackView = UIStackView() .. {
+        $0.axis = .vertical
+        $0.spacing = Spacing.cardSpace
+        $0.alignment = .center
+        $0.contentMode = .scaleAspectFit
+    }
 
-        return label
-    }()
+    private let logoImage = UIImageView() .. {
+        $0.image = UIImage(named: "search")
+        $0.contentMode = .scaleAspectFill
+    }
 
-    private var textField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
-        textField.placeholder = "Search for name"
-        textField.font = UIFont.systemFont(ofSize: 16)
-        textField.contentVerticalAlignment = .center
-        textField.keyboardType = .alphabet
-        textField.returnKeyType = .done
-        textField.textAlignment = .center
+    private lazy var card = RPShadowView()
 
-        return textField
-    }()
+    private var searchStackView = UIStackView() .. {
+        $0.axis = .vertical
+        $0.alignment = .center
+        $0.spacing = Spacing.extraLarge
+    }
 
-    private var searchButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Search", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+    private var titleLabel = UILabel() .. {
+        $0.font = Fonts.title
+        $0.text = "Search for a language"
+    }
 
-        return button
-    }()
+    private let textField = UITextField() .. {
+        $0.clearButtonMode = .whileEditing
+        $0.placeholder = "Search for a language"
+        $0.font = Fonts.textField
+        $0.contentVerticalAlignment = .center
+        $0.keyboardType = .alphabet
+        $0.returnKeyType = .done
+        $0.textAlignment = .center
+        $0.backgroundColor = AppColors.lightGray
+        $0.layer.shadowColor = AppColors.darkGray.cgColor
+        $0.layer.borderColor = AppColors.lightGray.cgColor
+        $0.layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
+        $0.layer.cornerRadius = 8
+        $0.layer.shadowOpacity = 0.4
+        $0.layer.shadowRadius = 20.0
+        $0.height(60)
 
-    private var emptyTextField: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.text = ""
-        label.textColor = .systemRed
-
-        return label
-    }()
+    }
+    
+    private lazy var searchButton = RPButton() .. {
+        $0.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+    }
 
     override func configureSubviews() {
-        addSubview(totalStackView)
-        totalStackView.addArrangedSubview(titleLabel)
-        totalStackView.addArrangedSubview(textField)
-        totalStackView.addArrangedSubview(searchButton)
-        totalStackView.addArrangedSubview(emptyTextField)
+        addSubview(backgroundStackView)
+        backgroundStackView.addArrangedSubview(logoImage)
+        backgroundStackView.addArrangedSubview(card)
+        card.addSubview(searchStackView)
+        searchStackView.addArrangedSubview(textField)
+        searchStackView.addArrangedSubview(searchButton)
     }
 
     override func configureConstraints() {
-        NSLayoutConstraint.activate([
-            totalStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
+        backgroundStackView.centerInSuperview(usingSafeArea: true)
+        logoImage.height(to: backgroundStackView, multiplier: 0.4)
+        logoImage.width(to: backgroundStackView)
+        card.height(to: backgroundStackView, multiplier: 0.52)
+        card.width(to: backgroundStackView, multiplier: 0.5)
+        searchStackView.center(in: card)
+        searchButton.width(to: card, multiplier: 0.4)
+        textField.width(to: card, multiplier: 0.8)
+
     }
 
     @objc func searchButtonTapped() {
@@ -98,13 +103,11 @@ class SearchView: RPView {
             if text != "" {
                 didTapOnSearchButton(text)
                 textField.text = ""
-                emptyTextField.text = ""
                 textField.layer.borderWidth = 0
             } else {
                 textField.layer.borderColor = UIColor.systemRed.cgColor
                 textField.layer.borderWidth = 2
                 textField.layer.cornerRadius = 6
-                emptyTextField.text = "The field can't be blank"
             }
         }
     }

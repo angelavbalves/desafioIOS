@@ -13,4 +13,5 @@ struct Spacing {
     static let medium = 12.0
     static let large = 16.0
     static let extraLarge = 20.0
+    static let cardSpace = 28.0
 }
