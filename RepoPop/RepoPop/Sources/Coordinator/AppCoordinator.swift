@@ -14,6 +14,7 @@ class AppCoordinator: CoordinatorProtocol {
     var window: UIWindow
     var navController: UINavigationController? { window.rootViewController as? UINavigationController }
     var childCoordinator: [CoordinatorProtocol] = []
+    var rootViewController: UINavigationController?
 
     // MARK: - Init
     init(window: UIWindow) {
@@ -35,7 +36,9 @@ class AppCoordinator: CoordinatorProtocol {
             coordinator: self
         )
         let controller = PullRequestsViewController(viewModel: viewModel)
-        navController?.present(controller, animated: true)
+        rootViewController = UINavigationController(rootViewController: controller)
+        controller.setCloseButton()
+        navController?.present(rootViewController!, animated: true)
     }
 
     func searchForRepositories(of language: String) {

@@ -68,12 +68,11 @@ class PopularRepositoriesCell: UITableViewCell {
     }
 
     private lazy var userImageView = UIImageView() .. {
+        $0.layer.cornerRadius = 30
         $0.clipsToBounds = true
-        $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFill
         $0.width(60)
         $0.height(60)
-        $0.layer.cornerRadius = 20
     }
 
     private let usernameLabel = UILabel() .. {
