@@ -31,7 +31,9 @@ class SearchController: RPViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         searchView.backgroundColor = AppColors.lightGray
+        shouldDismissKeyboardOnTap = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
