@@ -27,7 +27,10 @@ class PullRequestsView: RPView {
     }()
 
     // MARK: Init
-    init(openURL: @escaping (_ url: URL) -> Void, presentAlert: @escaping (_ alertController: UIAlertController) -> Void) {
+    init(
+        openURL: @escaping (_ url: URL) -> Void,
+        presentAlert: @escaping (_ alertController: UIAlertController) -> Void
+    ) {
         self.openURL = openURL
         self.presentAlert = presentAlert
         super.init()

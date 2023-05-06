@@ -12,4 +12,5 @@ enum ErrorState: Swift.Error {
     case repositoryNotFound
     case noConnection
     case badRequest
+    case invalidData
 }

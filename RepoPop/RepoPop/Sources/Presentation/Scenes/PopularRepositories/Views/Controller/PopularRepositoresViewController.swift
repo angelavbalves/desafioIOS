@@ -6,29 +6,29 @@
 //
 
 import UIKit
-
-protocol PopularRepositoresViewControllerDelegate {
-    func fetchRepositories()
-    func userDidTapOnTheRow(_ repository: RepositoryResponseItem)
-}
+import RxSwift
 
 class PopularRepositoresViewController: RPViewController {
 
     // MARK: Properties
-    private lazy var popularRepositoriesView = PopularRepositoriesView(delegate: self)
+    private lazy var popularRepositoriesView = PopularRepositoriesView(
+        fetchRepositories: fetchRepositories,
+        didTapOnRow: userDidTapOnTheRow(_:)
+    )
+    private let viewModel: PopularRepositoriesViewModel
     private var currentPage = 1
     private var language: String
     let searchBar = UISearchBar()
+    private let disposeBag = DisposeBag()
 
     // MARK: Init
-    init(language: String) {
+    init(
+        language: String,
+        viewModel: PopularRepositoriesViewModel
+    ) {
         self.language = language
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.viewModel = viewModel
+        super.init()
     }
 
     // MARK: Life Cycle
@@ -47,6 +47,7 @@ class PopularRepositoresViewController: RPViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         clearFilter()
     }
 
@@ -79,39 +80,27 @@ class PopularRepositoresViewController: RPViewController {
         searchBar.showsCancelButton = shouldShow
         navigationItem.titleView = shouldShow ? searchBar : nil
     }
-}
-
-extension PopularRepositoresViewController: PopularRepositoresViewControllerDelegate {
 
     func fetchRepositories() {
         loadingView.show()
-        Service.makeRequest(endpoint: ApiEndpoints.repository(language: language, page: currentPage)) { (result: Result<RepositoryResponse, ErrorState>) in
-            switch result {
-                case let .success(repositoryResult):
-                    DispatchQueue.main.async { [weak self] in
-                        guard !repositoryResult.items.isEmpty else {
-                            self?.emptyView.show(title: "Ops! There's nothing to see here. Search again.", image: UIImage(named: "emptypullrequest")!)
-                            return
-                        }
-                        self?.popularRepositoriesView.reloadTableViewWith(popularRepositories: repositoryResult.items)
-                        self?.loadingView.hide()
-                        self?.currentPage += 1
-                    }
-                case .failure:
-                    DispatchQueue.main.async { [weak self] in
-                        self?.errorView.show(
-                            title: "Ops, something went wrong here!",
-                            image: UIImage(named: "errorImage")!,
-                            retryAction: self?.fetchRepositories
+        viewModel
+            .fetchRepositories(language, currentPage)
+            .subscribe(onNext: { [weak self] repositoriesReponse in
+                let repositories = repositoriesReponse.items
+                DispatchQueue.main.async {
+                    self?
+                        .popularRepositoriesView
+                        .reloadTableViewWith(
+                            popularRepositories: repositories
                         )
-                    }
-            }
-        }
+                    self?.loadingView.hide()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     func userDidTapOnTheRow(_ repository: RepositoryResponseItem) {
-        let controller = PullRequestsViewController(username: repository.owner.login, repositoryTitle: repository.name)
-        navigationController?.pushViewController(controller, animated: true)
+        viewModel.showPullRequestsList(repository)
     }
 
     func clearFilter() {

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class PopularRepositoriesCell: UITableViewCell {
 
@@ -203,23 +204,12 @@ class PopularRepositoriesCell: UITableViewCell {
         guard let url = URL(string: repository.owner.avatarURL) else {
             return
         }
-        userImageView.downloadImage(from: url)
+        userImageView.kf.indicatorType = .activity
+        userImageView.kf.setImage(with: url,
+                                  options: [.onFailureImage(UIImage(named: "errorImage"))]
+        )
         repositoryNameLabel.text = repository.name
         forksLabel.text = String(repository.forks)
         starsLabel.text = String(repository.stargazersCount)
-    }
-}
-
-extension UIImageView {
-    func downloadImage(from url: URL) {
-        let session = URLSession.shared.dataTask(with: url) { data, _, _ in
-            if let data = data {
-                let image = UIImage(data: data)
-                DispatchQueue.main.async { [weak self] in
-                    self?.image = image
-                }
-            }
-        }
-        session.resume()
     }
 }
