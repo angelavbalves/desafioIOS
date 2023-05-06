@@ -25,6 +25,20 @@ class RPViewController: UIViewController {
     let loadingView = RPLoadingView()
     let warningView = RPWarningView()
 
+    // MARK: - Gesture Recognizer
+    private lazy var keyboardGestureRecognizer = UITapGestureRecognizer(
+        target: self,
+        action: #selector(dismissKeyboardAction)
+    ) .. {
+        $0.cancelsTouchesInView = false
+    }
+
+    var shouldDismissKeyboardOnTap = false {
+        didSet {
+            configureDismissKeyboardGestureRecognizer()
+        }
+    }
+
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,5 +51,18 @@ class RPViewController: UIViewController {
     func setupConstraintsView() {
         loadingView.edgesToSuperview(usingSafeArea: true)
         warningView.edgesToSuperview(usingSafeArea: true)
+    }
+
+    private func configureDismissKeyboardGestureRecognizer() {
+        if shouldDismissKeyboardOnTap {
+            view.addGestureRecognizer(keyboardGestureRecognizer)
+        } else {
+            view.removeGestureRecognizer(keyboardGestureRecognizer)
+        }
+    }
+
+    @objc
+    private func dismissKeyboardAction() {
+        view.endEditing(true)
     }
 }
