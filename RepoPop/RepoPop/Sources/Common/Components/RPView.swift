@@ -14,6 +14,7 @@ class RPView: UIView {
         super.init(frame: .zero)
         configureSubviews()
         configureConstraints()
+        setupView()
     }
 
     @available(*, unavailable)
@@ -24,4 +25,5 @@ class RPView: UIView {
     // MARK: Aux
     func configureSubviews() {}
     func configureConstraints() {}
+    func setupView() {}
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TinyConstraints
 import Kingfisher
 
 class PopularRepositoriesCell: UITableViewCell {
@@ -27,175 +28,87 @@ class PopularRepositoriesCell: UITableViewCell {
     }
 
     // MARK: Views
-    private var totalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        return stackView
-    }()
+    private let cardCell = RPShadowView()
 
-    private var descriptionStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 12
-        return stackView
-    }()
+    private let stackView = UIStackView() .. {
+        $0.axis = .horizontal
+        $0.spacing = Spacing.large
+        $0.alignment = .center
+        $0.distribution = .fillProportionally
+    }
 
-    private var personStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 4
-        return stackView
-    }()
+    private var leftStackView = UIStackView() .. {
+        $0.axis = .vertical
+        $0.spacing = Spacing.medium
+    }
 
-    private var infosStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 12
+    private var rightStackView = UIStackView() .. {
+        $0.axis = .vertical
+        $0.spacing = Spacing.extraSmall
+    }
 
-        return stackView
-    }()
+    private var rowStackView = UIStackView() .. {
+        $0.axis = .horizontal
+        $0.spacing = Spacing.medium
+        $0.distribution = .equalSpacing
+    }
 
-    private var iconForkStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
+    private var repositoryNameLabel = UILabel() .. {
+        $0.numberOfLines = 0
+        $0.font = UIFont.systemFont(ofSize: 24)
+        $0.textColor = AppColors.darkGray
+        $0.setContentHuggingPriority(.required, for: .vertical)
+    }
 
-        return stackView
-    }()
+    private let descriptionLabel = UILabel() .. {
+        $0.numberOfLines = 5
+        $0.font = Fonts.subtitleLarge
+        $0.textColor = .black
+        $0.textAlignment = .justified
+    }
 
-    private var iconStarStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
+    private lazy var userImageView = UIImageView() .. {
+        $0.backgroundColor = .red
+        $0.clipsToBounds = true
+        $0.layer.masksToBounds = false
+        $0.contentMode = .scaleAspectFill
+        $0.width(60)
+        $0.height(60)
+        $0.layer.cornerRadius = 20
+    }
 
-        return stackView
-    }()
+    private let usernameLabel = UILabel() .. {
+        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.textColor = AppColors.darkGray
+        $0.textAlignment = .center
+    }
 
-    private var repositoryNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.text = "Repository name"
-        label.font = UIFont.systemFont(ofSize: 24)
-        label.textColor = .systemBlue
-        label.setContentHuggingPriority(.required, for: .vertical)
+    private lazy var forks = RPDetailsRow() .. {
+        $0.iconRow.image = UIImage(systemName: "arrow.triangle.branch")?.withTintColor(AppColors.green, renderingMode: .alwaysOriginal)
+    }
 
-        return label
-    }()
-
-    private var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 5
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .black
-        label.textAlignment = .justified
-
-        return label
-    }()
-
-    private lazy var userImageView: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.backgroundColor = .red
-        image.layer.cornerRadius = 50
-        image.clipsToBounds = true
-
-        return image
-    }()
-
-    private var usernameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .systemBlue
-        label.text = "username"
-        label.textAlignment = .center
-
-        return label
-    }()
-
-    private var forksLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .systemYellow
-        label.textAlignment = .center
-
-        return label
-    }()
-
-    private var starsLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .systemYellow
-        label.textAlignment = .center
-
-        return label
-    }()
-
-    private var iconForks: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "tuningfork")
-
-        return imageView
-    }()
-
-    private var iconStars: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "star.fill")
-
-        return imageView
-    }()
+    private lazy var stars = RPDetailsRow() .. {
+        $0.iconRow.image = UIImage(systemName: "star.fill")?.withTintColor(AppColors.yellow, renderingMode: .alwaysOriginal)
+    }
 
     // MARK: Aux
     func addViews() {
-        contentView.addSubview(totalStackView)
-        totalStackView.addArrangedSubview(descriptionStackView)
-        totalStackView.addArrangedSubview(personStackView)
-        descriptionStackView.addArrangedSubview(repositoryNameLabel)
-        descriptionStackView.addArrangedSubview(descriptionLabel)
-        descriptionStackView.addArrangedSubview(infosStackView)
-        infosStackView.addArrangedSubview(iconForkStackView)
-        infosStackView.addArrangedSubview(UIView())
-        infosStackView.addArrangedSubview(iconStarStackView)
-        iconForkStackView.addArrangedSubview(iconForks)
-        iconForkStackView.addArrangedSubview(forksLabel)
-        iconStarStackView.addArrangedSubview(iconStars)
-        iconStarStackView.addArrangedSubview(starsLabel)
-        personStackView.addArrangedSubview(userImageView)
-        personStackView.addArrangedSubview(usernameLabel)
+        addSubview(cardCell)
+        cardCell.addSubview(stackView)
+        stackView.addArrangedSubview(leftStackView)
+        stackView.addArrangedSubview(rightStackView)
+        leftStackView.addArrangedSubview(repositoryNameLabel)
+        leftStackView.addArrangedSubview(descriptionLabel)
+        leftStackView.addArrangedSubview(rowStackView)
+        rightStackView.addArrangedSubview(userImageView)
+        rightStackView.addArrangedSubview(usernameLabel)
+        rowStackView.addArrangedSubview(forks)
+        rowStackView.addArrangedSubview(stars)
     }
 
     func buildConstraintsCell() {
-        NSLayoutConstraint.activate([
-            totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            totalStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -24),
-
-            descriptionStackView.topAnchor.constraint(equalTo: totalStackView.topAnchor),
-            descriptionStackView.leadingAnchor.constraint(equalTo: totalStackView.leadingAnchor),
-
-            personStackView.trailingAnchor.constraint(equalTo: totalStackView.trailingAnchor),
-
-            userImageView.widthAnchor.constraint(equalToConstant: 100),
-            userImageView.heightAnchor.constraint(equalToConstant: 100),
-
-            iconForks.widthAnchor.constraint(equalToConstant: 16),
-            iconForks.heightAnchor.constraint(equalToConstant: 16),
-
-            iconStars.widthAnchor.constraint(equalToConstant: 16),
-            iconStars.heightAnchor.constraint(equalToConstant: 16)
-        ])
+        cardCell.edgesToSuperview(insets: .uniform(Spacing.medium), usingSafeArea: true)
+        stackView.edges(to: cardCell, insets: .uniform(Spacing.medium))
     }
 
     func setup(for repository: RepositoryResponseItem) {
@@ -209,7 +122,7 @@ class PopularRepositoriesCell: UITableViewCell {
                                   options: [.onFailureImage(UIImage(named: "errorImage"))]
         )
         repositoryNameLabel.text = repository.name
-        forksLabel.text = String(repository.forks)
-        starsLabel.text = String(repository.stargazersCount)
+        forks.info.text = String(repository.forks)
+        stars.info.text = String(repository.stargazersCount)
     }
 }

@@ -44,6 +44,7 @@ class PopularRepositoresViewController: RPViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchRepositories()
+        navigationController?.navigationBar.isHidden = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,10 +53,17 @@ class PopularRepositoresViewController: RPViewController {
     }
 
     func configureNav() {
-        navigationItem.title = "GitHub RepoPop"
+        navigationItem.title = language
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = .darkGray
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = AppColors.lightGreen
+
+        navigationController?.navigationBar.tintColor = .black
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
 
         searchBar.sizeToFit()
         searchBar.delegate = self
